@@ -20,7 +20,7 @@ from Company.views import afterAddMedicine
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('Account.urls')),
+    path('', include('Account.urls')),
     path('company/', include('Company.urls')),
 
 ]
