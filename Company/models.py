@@ -7,6 +7,7 @@ medicine_type = (
 
 
 class Company(models.Model):
+    companyId = models.AutoField(primary_key=True)
     name = models.CharField(max_length=25, blank=False, null=False)
     licence = models.CharField(max_length=50, blank=False, null=False)
     phoneNumber = models.CharField(max_length=15, blank=False, null=False)
@@ -17,15 +18,45 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
-class Medicine(models.Model):
-    #company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    companyNumber = models.CharField(max_length=11, blank=False, null=False)
-    medicineName = models.CharField(max_length=25, blank=False, null=False)
-    singleUnitQuantity = models.CharField(max_length=50, blank=False, null=False)
-    formName = models.CharField(max_length=15,choices=medicine_type, blank=False, null=False)
-    type = models.CharField(max_length=15, choices=medicine_type, blank=False, null=False)
+class MedicineType(models.Model):
+    medicineTypeId = models.AutoField(primary_key=True)
+    medicineTypeName = models.CharField(max_length=33, blank=False, null=False)
 
     def __str__(self):
-        return "{0},{1}".format(self.companyNumber,self.medicineName)
+        return self.medicineTypeName
+
+
+class MedicineForm(models.Model):
+    medicineFormId = models.AutoField(primary_key=True)
+    medicineFormName = models.CharField(max_length=33, blank=False, null=False)
+
+    def __str__(self):
+        return self.medicineFormName
+
+# class Medicine(models.Model):
+#     #company = models.ForeignKey(Company, on_delete=models.CASCADE)
+#     companyNumber = models.CharField(max_length=11, blank=False, null=False)
+#     medicineName = models.CharField(max_length=25, blank=False, null=False)
+#     singleUnitQuantity = models.CharField(max_length=50, blank=False, null=False)
+#     formName = models.CharField(max_length=15,choices=medicine_type, blank=False, null=False)
+#     type = models.CharField(max_length=15, choices=medicine_type, blank=False, null=False)
+#
+#     def __str__(self):
+#         return "{0},{1}".format(self.companyNumber,self.medicineName)
+
+class Medicine(models.Model):
+    medicineId = models.AutoField(primary_key=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    medicineName = models.CharField(max_length=25, blank=False, null=False)
+    singleUnitQuantity = models.CharField(max_length=50, blank=False, null=False)
+    form = models.ForeignKey(MedicineForm, on_delete=models.CASCADE)
+    type = models.ForeignKey(MedicineType, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.medicineName
+
+
+
+
 
 
