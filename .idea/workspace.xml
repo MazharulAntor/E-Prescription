@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4bb3dfee-aa27-4ee2-845f-468216de7589" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0002_company.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0003_auto_20191028_2311.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0004_company_phonenumber.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0005_auto_20191030_2206.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/migrations/0006_delete_doctor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/templates/Account/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account/templates/Account/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/templates/Account/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Account/templates/Account/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/migrations/0002_auto_20191102_0018.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/migrations/0003_medicine_type.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/templates/Company/company_add_medicine.html" beforeDir="false" afterPath="$PROJECT_DIR$/Company/templates/Company/company_add_medicine.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Doctor/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/E_Prescription/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_Prescription/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-    </list>
+    <list default="true" id="4bb3dfee-aa27-4ee2-845f-468216de7589" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +53,14 @@
       <option name="presentableId" value="Default" />
       <updated>1572763908418</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="patient added">
+      <created>1572976684695</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1572976684695</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -94,6 +79,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="database" />
     <MESSAGE value="database 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="database 2" />
+    <MESSAGE value="patient added" />
+    <option name="LAST_COMMIT_MESSAGE" value="patient added" />
   </component>
 </project>
