@@ -122,6 +122,15 @@
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password" required>
                         </div>
+
+                        <div>
+                                <div class="form-group alert alert-danger">
+                                    {% for message in messages %}
+                                   {{message}}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
                         <div class="form-group">
                             <p class="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
                         </div>
