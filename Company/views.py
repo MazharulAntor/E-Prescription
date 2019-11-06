@@ -8,7 +8,7 @@ def addMedicine(request):
     return render(request, "Company/company_add_medicine.html", {})
 
 def afterAddMedicine(request):
-        
+
         if request.method == "POST":
             name = request.POST["name"]
             tabletFormId = request.POST["tabletForm"]
