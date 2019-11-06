@@ -10,7 +10,7 @@ def login(request):
         if userType == "Doctor":
             phoneNumber = request.POST.get("number")
             password = request.POST.get("password")
-            doctor =Doctor.objects.all().filter(phoneNumber=phoneNumber,password=password)
+            doctor =Doctor.objects.all().filter(phoneNumber=phoneNumber, password=password)
 
             print (doctor)
 

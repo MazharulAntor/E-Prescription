@@ -273,8 +273,11 @@ body {
                 <label class="col-sm-5 control-label">Form* </label>
                 <div class="col-sm-8">
                     <select class=" form form-control" name="tabletForm">
-                      <option value="Tablet">Tablet</option>
-                      <option value="Liquid">Liquid</option>
+                      <option value="No">--Select one--</option>
+
+                        {% for form in forms %}
+                            <option value="{{form.medicineFormId}}">{{form.medicineFormName}}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>
@@ -283,8 +286,11 @@ body {
                 <label  class="col-sm-5 control-label">Type* </label>
                 <div class="col-sm-8">
                     <select class=" type form-control" name="type">
-                      <option value="Antibiotic">Antibiotic</option>
-                      <option value="Pain Killer">Pain Killer</option>
+                      <option value="Antibiotic">--Select one--</option>
+
+                        {% for type in types %}
+                            <option value="{{type.medicineTypeId}}">{{type.medicineTypeName}}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>

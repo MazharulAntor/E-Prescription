@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="57d43528-02c9-49ce-affb-44320a90d051" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+=======
+    <list default="true" id="4bb3dfee-aa27-4ee2-845f-468216de7589" name="Default Changelist" comment="" />
+>>>>>>> a1ed905fb909dacdb89cb5e48d8b8f8dc0244215
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,6 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1T1xH4rt07Kzf1WxvJ056UY4eMk" />
@@ -33,6 +38,7 @@
     <configuration />
   </component>
   <component name="TaskManager">
+<<<<<<< HEAD
     <task id="LOCAL-00001" summary="antor db">
       <created>1572643564039</created>
       <option name="number" value="00001" />
@@ -48,6 +54,37 @@
       <updated>1573062735180</updated>
     </task>
     <option name="localTasksCounter" value="2" />
+=======
+    <task id="LOCAL-00001" summary="database">
+      <created>1572643256178</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572643256179</updated>
+    </task>
+    <task id="LOCAL-00002" summary="database 2">
+      <created>1572643707908</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1572643707908</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4bb3dfee-aa27-4ee2-845f-468216de7589" name="Default Changelist" comment="" />
+      <created>1572763908418</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572763908418</updated>
+    </task>
+    <task id="LOCAL-00003" summary="patient added">
+      <created>1572976684695</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1572976684695</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+>>>>>>> a1ed905fb909dacdb89cb5e48d8b8f8dc0244215
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -55,14 +92,27 @@
       <map>
         <entry key="MAIN">
           <value>
+<<<<<<< HEAD
             <State />
+=======
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+>>>>>>> a1ed905fb909dacdb89cb5e48d8b8f8dc0244215
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+<<<<<<< HEAD
     <MESSAGE value="antor db" />
     <option name="LAST_COMMIT_MESSAGE" value="antor db" />
+=======
+    <MESSAGE value="database" />
+    <MESSAGE value="database 2" />
+    <MESSAGE value="patient added" />
+    <option name="LAST_COMMIT_MESSAGE" value="patient added" />
+>>>>>>> a1ed905fb909dacdb89cb5e48d8b8f8dc0244215
   </component>
 </project>
