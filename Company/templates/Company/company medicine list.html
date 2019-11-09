@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+{% extends "Company/base.html" %}
+{% block content %}
 	<style type="text/css">
 
     .mainContainer .leftSection .formContainer .container .custyle .table{
@@ -269,13 +265,13 @@ body {
                 </li>
                   </a>
 
-                 <a href="company medicine list.html">
+                 <a href="{% url 'medicineList' %}">
                   <li  data-toggle="collapse" data-target="#products" class="collapsed active">
                  <i class="fa fa-user fa-lg"></i> Medicine List
                 </li>
                 </a>
 
-                <a href="company add medicine.html">
+                <a href="{% url 'addmedicine' %}">
                   <li  data-toggle="collapse" data-target="#products" class="collapsed">
                   <i class="fa fa-user fa-lg"></i> Add Medicine
                 </li>
@@ -321,75 +317,78 @@ body {
             <th>Medicine Name</th>
             <th>Medicien type</th>
             <th>Medicine Form</th>
-            <th class="text-center">Action</th>
+            <th>Single untie Quantity</th>
+<!--            <th class="text-center">Action</th>-->
         </tr>
     </thead>
+        {% for medicine in medicines%}
             <tr>
-                <td>X</td>
-                <td>Antibiotic</td>
-                <td>Tablet</td>
-                <td class="text-center">
-                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a>
-                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
-                </td>
+                <td>{{medicine.medicineName}}</td>
+                <td>{{medicine.type}}</td>
+                <td>{{medicine.form}}</td>
+                <td>{{medicine.singleUnitQuantity}}</td>
+<!--                <td class="text-center">-->
+<!--                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a>-->
+<!--                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>-->
+<!--                </td>-->
             </tr>
-            <tr>
-                <td>Y</td>
-                <td>Pain Killer</td>
-                <td>Liquid</td>
-                <td class="text-center">
-                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a>
-                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Z</td>
-                <td>paracetamol</td>
-                <td>Capsule</td>
-                <td class="text-center">
-                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a>
-                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
-                </td>
-            </tr>
+        {% endfor %}
+<!--            <tr>-->
+<!--                <td>Y</td>-->
+<!--                <td>Pain Killer</td>-->
+<!--                <td>Liquid</td>-->
+<!--                <td class="text-center">-->
+<!--                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a>-->
+<!--                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Z</td>-->
+<!--                <td>paracetamol</td>-->
+<!--                <td>Capsule</td>-->
+<!--                <td class="text-center">-->
+<!--                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a>-->
+<!--                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>-->
+<!--                </td>-->
+<!--            </tr>-->
     </table>
     </div>
 </div>
 </div>
   </div>
-  <div class="rightSection">
-      
-        <div class="container mb-5 mt-5">
-            <div class="pricing card-deck flex-column flex-md-row mb-3">
-                <div class="card card-pricing text-center px-3 mb-4">
-                    <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Details</span>
-                    <div class="bg-transparent card-header pt-4 border-0">
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Name: <span></span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Type: <span></span></h5><hr>
-                        
+<!--  <div class="rightSection">-->
+<!--      -->
+<!--        <div class="container mb-5 mt-5">-->
+<!--            <div class="pricing card-deck flex-column flex-md-row mb-3">-->
+<!--                <div class="card card-pricing text-center px-3 mb-4">-->
+<!--                    <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Details</span>-->
+<!--                    <div class="bg-transparent card-header pt-4 border-0">-->
+<!--                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Name: <span></span></h5><hr>-->
+<!--                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Type: <span></span></h5><hr>-->
+<!--                        -->
 
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Form: <span></span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Unite Quantity: <span></span></h5><hr>
-                        
-                    </div>
-                  <div class="card-body pt-0">
-                        <ul class="list-unstyled mb-4">
-                            
-                        </ul>
-                        <button type="button" class="btn btn-outline-secondary mb-3">Delete</button>
-                  </div>
-                </div>
-            </div>
-        </div>
-        
-        
-       
-</div>
+<!--                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Form: <span></span></h5><hr>-->
+<!--                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Unite Quantity: <span></span></h5><hr>-->
+<!--                        -->
+<!--                    </div>-->
+<!--                  <div class="card-body pt-0">-->
+<!--                        <ul class="list-unstyled mb-4">-->
+<!--                            -->
+<!--                        </ul>-->
+<!--                        <button type="button" class="btn btn-outline-secondary mb-3">Delete</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        -->
+<!--        -->
+<!--       -->
+<!--</div>-->
 
-  </div>
+<!--  </div>-->
   
 
 </div>
  </div>
     
-</body>
-</html>
+{% endblock content %}

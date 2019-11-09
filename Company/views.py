@@ -4,8 +4,17 @@ from django.shortcuts import render, redirect
 from Company.models import Medicine, MedicineForm, MedicineType, Company
 
 
+def medicineList(request):
+    companyId = request.session.get('id')
+    company = Company.objects.get(companyId=companyId)
+    medicines = Medicine.objects.all().filter(company=company)
+
+    return render(request, "Company/company medicine list.html",{'medicines': medicines})
+
+
 def addMedicine(request):
     return render(request, "Company/company_add_medicine.html", {})
+
 
 def afterAddMedicine(request):
 
