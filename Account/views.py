@@ -3,6 +3,7 @@ from Doctor.models import Doctor
 from Company.models import Company
 from Patient.models import Patient
 from django.contrib import messages
+from Doctor.views import makePrescription
 
 
 
@@ -38,7 +39,8 @@ def login(request):
                 print(request.session.get('id'))
 
             if doctor:
-                return render(request, "Doctor/doctor_make_prescription.html", {})
+                #return render(request, "Doctor/doctor_make_prescription.html", {})
+                return redirect(makePrescription)
             else:
                 #return HttpResponse("No Doctor")
                 messages.info(request, 'no doctor found')

@@ -2,7 +2,15 @@
 
 {% block content %}
 
-	<style type="text/css">
+<style type="text/css">
+
+    .mainContainer .leftSection .formContainer .container .custyle .table{
+      display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+
+    }
+
 		.nav-side-menu {
   overflow: auto;
   font-family: verdana;
@@ -142,16 +150,26 @@
   
   margin-left: 300px;
 }
-.formContainer{
+.leftFormContainer{
   background: ;
   float: left;
   //box-shadow: 0 9px 9px silver;
   margin: 0 auto;
   padding-bottom: 33px;
   padding-top: 5px;
-  width: 624px;
+  width: 494px;
 
 }
+.formContainer{
+  background: red;
+  
+  //box-shadow: 0 9px 9px silver;
+  
+  
+  width: 533px;
+
+}
+
 .custab{
     border: 1px solid #ccc;
     padding: 5px;
@@ -163,20 +181,20 @@
     box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
     }
-    .container{
+    .leftContainer{
       background: transparent;
     }
     .rightSection{
       background: ;
       float: right;
-      width: 424px;
-      height: 366px;
+     // width: 564px;
+      //height: 366px;
       margin: 0 auto;
       padding: 9px;
     }
     .rightSection .container{
       background: ;
-      //box-shadow: 0 9px 9px silver;
+      box-shadow: 0 9px 9px silver;
     }
     //switch start
 
@@ -270,116 +288,279 @@ body {
 
 <div class="mainContainer">
   
-  <div class="leftSection">
+  <div class="leftSection" style="background: blue;">
+      <div class="leftFormContainer" style="background:red;">
+                <div class="leftContainer" style="background: blue;">
+
+
+                    <form class="form-horizontal" id="form" role="form" style="background:green;">
+                        <h4 style="margin-left: 0px;">Make Prescription</h4>
+                        <br>
+
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <label for="patientPhoneNumber" class=" control-label">Phone Number*</label>
+                                        <input type="text" id="patientPhoneNumber" placeholder="Phone Number" class="form-control" autofocus autocomplete="off" list="patientPhoneNumberList">
+                                        <datalist id="patientPhoneNumberList"></datalist>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <label for="patientName" class=" control-label">Patient Name*</label>
+                                        <input type="text" id="patientName" placeholder="Name" class="form-control" autofocus autocomplete="off" list="patientNameList">
+                                        <datalist id="patientNameList"></datalist>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <label for="name" class=" control-label">Age*</label>
+                                        <input type="number" id="name" placeholder="Name" class="form-control" autofocus autocomplete="off">
+                                    </div>
+                                    <div class="col-sm-5">
+
+                                        <label for="name" class=" control-label">Blood Grpup*</label>
+                                        <select class="form-control">
+                                            <option>
+                                              --select one--
+                                            </option>
+                                            {% for bloodGroup in patientBloodGroup%}
+                                            <option>
+                                              {{bloodGroup.patientBloodGroupName}}
+                                            </option>
+                                            {% endfor %}
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sex" class="col-sm-5 control-label">Sex* </label>
+                            <div class="col-sm-8 form-control">
+                                Male <input type="radio" id="sex" name="sex"> Female <input type="radio" id="sex" name="sex"> Others <input type="radio" id="sex" name="sex">
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="form-group" style="background: red;">
+                          
+
+                            <div class="col-sm-12" >
+                              <h5>Add Medicien</h5>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="name" class=" control-label">Madicien Type*</label>
+                                        <select class="form-control">
+                                            <option>
+                                              --select one--
+                                            </option>
+                                            
+                    </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="name" class=" control-label">Company*</label>
+                                        <select class="form-control">
+                                            <option>
+                                              --select one--
+                                            </option>
+                                            
+                    </select>
+                                    </div>
+                                    <div class="col-sm-4">
+
+                                        <label for="name" class=" control-label">Medicine*</label>
+                                        <select class="form-control">
+                                            <option>
+                                              --select one--
+                                            </option>
+                                            
+                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-4" style="background: yellow;">
+                                        <label for="name" class=" control-label">Frequan*</label>
+                                        <div class="col-sm-10 form-control" style="background: red;">
+                                           <input type="checkbox" id="sex" name="sex"> Morning<br>
+                                            <input type="checkbox" id="sex" name="sex"> Noon<br>
+                                             <input type="checkbox" id="sex" name="sex"> Night
+                                       </div>
+                                    </div>
+                                    <div class="col-sm-4" style="background: red;">
+
+                                        <label for="name" class=" control-label">Quantity*</label>
+                                        <input type="number" id="quantity" placeholder="Quantity" class="form-control" autofocus>
+                                    </div>
+                                    <div class="col-sm-4" style="background: yellow;">
+
+                                        
+                                        <input type="button" id="add" value="Add" class="btn btn-info btn-block" autofocus>
+                                    </div>
+
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="form-group">
+                            <label for="password" class="col-sm-5 control-label">Confirm Password*</label>
+                            <div class="col-sm-8">
+                                <input type="password" id="confirmPassword" placeholder="Password" class="form-control">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="licence" class="col-sm-5 control-label">Drug Licence* </label>
+                            <div class="col-sm-8">
+                                <input type="text" id="licence" placeholder="Licence of the Pharmacy" class="form-control">
+                            </div>
+                        </div> -->
+
+
+
+
+
+                        <!-- /.form-group -->
+                        <!-- <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <span class="help-block">*Required fields</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3" id="message">
+
+                            </div>
+                        </div>
+                        <input type="button" class="btn btn-primary btn-block" id="registerButton" value="Register"></button> -->
+                    </form>
+                    <!-- /form -->
+                </div>
+                <!-- ./container -->
+
+                
+            </div> <!-- formContainer -->
       
-      <div class="formContainer">
+  </div>
+  <div class="rightSection">
+      
+<div class="formContainer">
     
       <div class="container">
     <div class="row col-md-12 col-md-offset-5 custyle">
-
-    <div>
-    <h5>Patient Mobile Number:</h5>
-    <input type="text" name="">
-    <h5>Name:</h5>
-    <input type="text" name="">
-    <h5>Age:</h5>
-    <input type="text" name="">
-    <button>Make Prescription</button>
-    </div>
-
-
-    <div>
-    <h4>Medicine Id</h4>
-    <input type="text" name="">
-    <button>Search</button>
-    </div>
-
-
-    <table class="table table-striped custab">
+    <table class="table table-striped custab" >
     <thead>
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
-    
-
+    <h4>Medicine List</h4>
     
     
         <tr>
-            <th>Medicine Name</th>
-            <th>Medicine Company</th>
-            
-            
+            <th>Medicine</th>
+            <th>Frequancy</th>
+            <th>Quantity</th>
+            <th class="text-center">Action</th>
         </tr>
     </thead>
             <tr>
-                <td>C</td>
-                <td>Napa</td>
-                
-                
+                <td>X</td>
+                <td>Antibiotic</td>
+                <td>Tablet</td>
+                <td class="text-center">
+                  
+                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
+                </td>
             </tr>
-           
+            <tr>
+                <td>Y</td>
+                <td>Pain Killer</td>
+                <td>Liquid</td>
+                <td class="text-center">
+                  
+                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Z</td>
+                <td>paracetamol</td>
+                <td>Capsule</td>
+                <td class="text-center">
+                  
+                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
+                </td>
+            </tr>
     </table>
-
-<div>
-<h4>Frequency:</h4>
-<input type="checkbox" name="morning">Morning
-<input type="checkbox" name="noon">Noon
-<input type="checkbox" name="night">Night
-<h4>Duration:</h4>
-<input type="number" name="">
-<td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Add</a></td>
-</div>
-
-
     </div>
 </div>
 </div>
-
-  </div>
-  <div class="rightSection">
-
-
-            <div class="">
-            
-              <div class="container">
-            <div class="row col-md-12 col-md-offset-5 custyle">
-            <table class="table table-striped custab">
-            <thead>
-            <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
-            <h4>Prescription Medicine:</h4>
-                <tr>
-                    <th>Medicine</th>
-                    <th>Frequency</th>
-                    <th>Duration</th>
-                    
-                </tr>
-            </thead>
-                    <tr>
-                        <td>X</td>
-                        <td>1/1/0</td>
-                        <td>A</td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Y</td>
-                        <td>1/1/0</td>
-                        <td>B</td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Z</td>
-                        <td>1/1/0</td>
-                        <td>C</td>
-                        
-                    </tr>
-            </table>
-            </div>
-        </div>
-        </div>
+      
+        <input type="button" class="btn btn-primary btn-block" id="registerButton" value="">
+        
+       
+</div><!-- rightSection -->
 
   </div>
   
 
 </div>
  </div>
+
+ <script>
+      $("document").ready(function(){
+          $.ajax({
+            url: "getPatientPhoneNumber",
+            type: "GET",
+            success: function(data){
+              var patientPhoneNumber=JSON.parse(data.patientPhoneNumber);
+              for(key in patientPhoneNumber)   
+              {
+                  $("#patientPhoneNumberList").append("<option value='"+patientPhoneNumber[key].fields.patientPhoneNumber+"'>")
+                  
+              }
+              
+            }
+          })
+      });
+      $("#patientPhoneNumber").blur(function(){
+        $("#registerButton").val("cle")
+          var phoneNumber=$("#patientPhoneNumber").val()
+          if(phoneNumber.localeCompare("")!=0){
+              $.ajax({
+            
+            url: "getPatientsNameOnPhoneNumber",
+            type: "GET",
+            data: {
+              patientPhoneNumber: phoneNumber
+            },
+            success: function(data){
+                var patientName=JSON.parse(data.patientName);
+                for(key in patientName)   
+                {
+                    $("#patientNameList").append("<option value='"+patientName[key].fields.patientName+"'>")
+                   
+                }
+            }
+          });
+          }
+          
+      });
+ </script>
 
 
  {% endblock content %}

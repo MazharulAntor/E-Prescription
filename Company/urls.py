@@ -3,5 +3,5 @@ from .views import addMedicine, afterAddMedicine, medicineList
 
 urlpatterns = [
     path('addMedicine/', afterAddMedicine, name="addmedicine"),
-    path('medicineList',medicineList,name='medicineList')
+    path('medicineList/',medicineList,name='medicineList')
 ]

@@ -54,9 +54,3 @@ class Medicine(models.Model):
 
     def __str__(self):
         return self.medicineName
-
-
-
-
-
-
