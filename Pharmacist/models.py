@@ -5,11 +5,11 @@ from django.db import models
 
 class Pharmacist(models.Model):
     pharmacistId = models.AutoField(primary_key=True)
-    pharmacistStoreName = models.CharField(max_length=33,blank=False,null=False)
-    pharmacistDrugLicence = models.CharField(max_length=33,blank=False, null=False)
-    pharmacistPhoneNummber = models.BigIntegerField(max_length=18, null=False, blank=False)
-    pharmacistStoreAddress = models.CharField(max_length=33,null=False, blank=False)
-    pharmacistPassword = models.CharField(max_length=33,blank=False,null=False)
+    storeName = models.CharField(max_length=33,blank=False,null=False)
+    drugLicence = models.CharField(max_length=33, blank=False, null=False)
+    phoneNumber = models.CharField(max_length=18, null=False, blank=False)
+    storeAddress = models.CharField(max_length=33,null=False, blank=False)
+    password = models.CharField(max_length=33,blank=False,null=False)
 
     def __str__(self):
-        return self.pharmacistStoreName
+        return self.storeName
