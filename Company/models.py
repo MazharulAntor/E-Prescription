@@ -22,16 +22,16 @@ class MedicineType(models.Model):
     medicineTypeId = models.AutoField(primary_key=True)
     medicineTypeName = models.CharField(max_length=33, blank=False, null=False)
 
-    def __str__(self):
-        return self.medicineTypeName
+    def __int__(self):
+        return self.medicineTypeId
 
 
 class MedicineForm(models.Model):
     medicineFormId = models.AutoField(primary_key=True)
     medicineFormName = models.CharField(max_length=33, blank=False, null=False)
 
-    def __str__(self):
-        return self.medicineFormName
+    def __int__(self):
+        return self.medicineFormId
 
 # class Medicine(models.Model):
 #     #company = models.ForeignKey(Company, on_delete=models.CASCADE)

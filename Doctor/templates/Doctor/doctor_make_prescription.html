@@ -310,7 +310,7 @@ body {
                                     <div class="col-sm-7">
                                         <label for="patientName" class=" control-label">Patient Name*</label>
                                         <input type="text" id="patientName" placeholder="Name" class="form-control" autofocus autocomplete="off" list="patientNameList">
-                                        <datalist id="patientNameList"></datalist>
+                                        <datalist list id="patientNameList"></datalist>
                                     </div>
                                 </div>
                             </div>
@@ -322,12 +322,12 @@ body {
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <label for="name" class=" control-label">Age*</label>
-                                        <input type="number" id="name" placeholder="Name" class="form-control" autofocus autocomplete="off">
+                                        <input type="number" id="patientAge" placeholder="Age" class="form-control" autofocus autocomplete="off">
                                     </div>
                                     <div class="col-sm-5">
 
                                         <label for="name" class=" control-label">Blood Grpup*</label>
-                                        <select class="form-control">
+                                        <select class="form-control" id="patientBloodGroup">
                                             <option>
                                               --select one--
                                             </option>
@@ -343,10 +343,13 @@ body {
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group sexRadioGroup">
                             <label for="sex" class="col-sm-5 control-label">Sex* </label>
                             <div class="col-sm-8 form-control">
-                                Male <input type="radio" id="sex" name="sex"> Female <input type="radio" id="sex" name="sex"> Others <input type="radio" id="sex" name="sex">
+                              {%for patientSex in patientSexes%}
+                                {{patientSex.patientSexName}} <input type="radio" id="patientSex" name="sex" value="{{patientSex.id}}">
+                              {%endfor%}
+                                
                             </div>
                         </div>
                         <hr>
@@ -359,26 +362,35 @@ body {
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label for="name" class=" control-label">Madicien Type*</label>
-                                        <select class="form-control">
-                                            <option>
+                                        <select class="form-control" id="medicineTypeDrop">
+                                            <option value="no">
                                               --select one--
                                             </option>
                                             
-                    </select>
+                                            {% for medicineType in medicineTypes %}
+                                            
+                                            <option value="{{medicineType.medicineTypeId}}">{{medicineType.medicineTypeName}}</option>
+                                            {% endfor %}
+                                            
+                                        </select>
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="name" class=" control-label">Company*</label>
-                                        <select class="form-control">
+                                        <select class="form-control" id="medicineCompanyDrop">
                                             <option>
                                               --select one--
                                             </option>
+                                            {% for company in companys %}
+                                                <option value="{{company.companyId}}">{{company.name}}</option>
+
+                                            {% endfor%}
                                             
                     </select>
                                     </div>
                                     <div class="col-sm-4">
 
                                         <label for="name" class=" control-label">Medicine*</label>
-                                        <select class="form-control">
+                                        <select class="form-control" id="medicineDrop">
                                             <option>
                                               --select one--
                                             </option>
@@ -394,22 +406,22 @@ body {
                             <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col-sm-4" style="background: yellow;">
-                                        <label for="name" class=" control-label">Frequan*</label>
+                                        <label for="name" class=" control-label">Frequancy*</label>
                                         <div class="col-sm-10 form-control" style="background: red;">
-                                           <input type="checkbox" id="sex" name="sex"> Morning<br>
-                                            <input type="checkbox" id="sex" name="sex"> Noon<br>
-                                             <input type="checkbox" id="sex" name="sex"> Night
+                                           <input type="checkbox" id="frequencyMorningCheck" name="frequencyCheck"> Morning<br>
+                                            <input type="checkbox" id="frequencyNoonCheck" name="frequencyCheck"> Noon<br>
+                                             <input type="checkbox" id="frequencyNightCheck" name="frequencyCheck"> Night
                                        </div>
                                     </div>
                                     <div class="col-sm-4" style="background: red;">
 
                                         <label for="name" class=" control-label">Quantity*</label>
-                                        <input type="number" id="quantity" placeholder="Quantity" class="form-control" autofocus>
+                                        <input type="number" id="medicineQuantity" placeholder="Quantity" class="form-control" autofocus>
                                     </div>
                                     <div class="col-sm-4" style="background: yellow;">
 
                                         
-                                        <input type="button" id="add" value="Add" class="btn btn-info btn-block" autofocus>
+                                        <input type="button" id="addMedicine" value="Add" class="btn btn-info btn-block" autofocus>
                                     </div>
 
                                     
@@ -465,7 +477,7 @@ body {
     
       <div class="container">
     <div class="row col-md-12 col-md-offset-5 custyle">
-    <table class="table table-striped custab" >
+    <table class="table table-striped custab prescriptionMedicienListTable" >
     <thead>
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
     <h4>Medicine List</h4>
@@ -510,7 +522,7 @@ body {
 </div>
 </div>
       
-        <input type="button" class="btn btn-primary btn-block" id="registerButton" value="">
+        <input type="button" class="btn btn-primary btn-block" id="registerButton" value="Make Prescription">
         
        
 </div><!-- rightSection -->
@@ -522,6 +534,18 @@ body {
  </div>
 
  <script>
+
+      //global variable for patient info
+      {% comment %} var patientPhoneNumber;
+      var patientName;
+      var patientSexId;
+      var patientBloodGroupId;
+      var patientAge;
+      var patientIsOld;
+      var patientId; {% endcomment %}
+
+
+      
       $("document").ready(function(){
           $.ajax({
             url: "getPatientPhoneNumber",
@@ -536,9 +560,10 @@ body {
               
             }
           })
+          
       });
       $("#patientPhoneNumber").blur(function(){
-        $("#registerButton").val("cle")
+        //$("#registerButton").val("cle")
           var phoneNumber=$("#patientPhoneNumber").val()
           if(phoneNumber.localeCompare("")!=0){
               $.ajax({
@@ -549,6 +574,7 @@ body {
               patientPhoneNumber: phoneNumber
             },
             success: function(data){
+              $("#patientNameList").empty()
                 var patientName=JSON.parse(data.patientName);
                 for(key in patientName)   
                 {
@@ -560,6 +586,78 @@ body {
           }
           
       });
+      
+      $('input:radio').on('change', function(){
+        
+        patientSexId=$(this).val()
+        //$("#registerButton").val(patientSexId)
+      }); 
+      $('#patientName').on('input', function() {
+            var phone = $("#patientPhoneNumber").val();
+            var name = $("#patientName").val();
+            //alert(val);
+
+          var opts = $("#patientNameList").children();
+          for (var i = 0; i < opts.length; i++) {
+            //alert(opts[i].value);
+            if (opts[i].value === name) {
+              //alert(opts[i].value);
+              $.ajax({
+                url: "getPatientOnNameAndPhoneNumber",
+                type: "GET",
+                data: {
+                    patientName: name,
+                    patientPhoneNumber: phone
+                },
+                success: function(data){
+                    var patient=JSON.parse(data.patient);
+                    //alert(patient);
+                    
+                }
+              });
+              
+              break;
+            }
+          }
+        
+      });
+      $("#medicineTypeDrop").on('change',function(){
+        var typeId= $(this).val()
+          $.ajax({
+              url: "getMedicineOnType",
+              type: "GET",
+              data: {
+                medicineTypeId: typeId
+              },
+              success: function(data){
+                  var medicineList= JSON.parse(data.medicine)
+                  for( medicine in medicineList){
+                    $("#medicineDrop").empty()
+                    $("#medicineDrop").append("<option value='"+medicineList[medicine].pk+"'>"+medicineList[medicine].fields.medicineName+"</option>")
+                  }
+              }
+          });
+      });
+      $("#medicineCompanyDrop").on('change',function(){
+        var companyId= $(this).val()
+          $.ajax({
+              url: "getMedicineOnCompany",
+              type: "GET",
+              data: {
+                medicineCompanyId: companyId
+              },
+              success: function(data){
+                  var medicineList= JSON.parse(data.medicine)
+                  $("#medicineDrop").empty()
+                  for( medicine in medicineList){
+                    //$("#registerButton").val((medicineList[medicine].pk))
+                    
+                    $("#medicineDrop").append("<option value='"+medicineList[medicine].pk+"'>"+medicineList[medicine].fields.medicineName+"</option>")
+                  }
+              }
+          });
+      });
+      
  </script>
 
 

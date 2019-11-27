@@ -324,8 +324,8 @@ body {
         {% for medicine in medicines%}
             <tr>
                 <td>{{medicine.medicineName}}</td>
-                <td>{{medicine.type}}</td>
-                <td>{{medicine.form}}</td>
+                <td>{{medicine.type.medicineTypeName}}</td>
+                <td>{{medicine.form.medicineFormName}}</td>
                 <td>{{medicine.singleUnitQuantity}}</td>
 <!--                <td class="text-center">-->
 <!--                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a>-->

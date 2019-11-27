@@ -32,12 +32,20 @@ def afterAddMedicine(request):
 
             addMed=Medicine(company=company, medicineName=name, singleUnitQuantity=quantity, form=tabletForm, type=type)
             addMed.save()
-            types = MedicineType.objects.all()
-            forms = MedicineForm.objects.all()
+            types = getMedicineType()
+            forms = getMedicineForm()
 
             return render(request, "Company/company_add_medicine.html", {'types': types, 'forms': forms})
         else:
-            types = MedicineType.objects.all()
-            forms = MedicineForm.objects.all()
+            types = getMedicineType()
+            forms = getMedicineForm()
 
             return render(request, "Company/company_add_medicine.html", {'types': types, 'forms': forms})
+
+def getMedicineType():
+    types = MedicineType.objects.all()
+    return types
+
+def getMedicineForm():
+    forms = MedicineForm.objects.all()
+    return forms
