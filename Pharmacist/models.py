@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from Company.models import Company, Medicine
 
 
 class Pharmacist(models.Model):
@@ -13,3 +14,22 @@ class Pharmacist(models.Model):
 
     def __str__(self):
         return self.storeName
+
+class Order(models.Model):
+    orderId = models.AutoField(primary_key=True)
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    pharmacist = models.ForeignKey(Pharmacist, on_delete=models.CASCADE)
+    quantity = models.CharField(max_length=50, blank=False, null=False)
+    confirmationState = models.CharField(max_length=50, blank=False, null=False)
+
+    def __str__(self):
+        return self.confirmationState
+
+class MedicineStock(models.Model):
+    medicineStockId = models.AutoField(primary_key=True)
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    pharmacist = models.ForeignKey(Pharmacist, on_delete=models.CASCADE)
+    quantity = models.CharField(max_length=50, blank=False, null=False)
+
+    def __int__(self):
+        return self.medicineStockId

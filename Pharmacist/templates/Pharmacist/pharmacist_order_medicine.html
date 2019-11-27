@@ -1,4 +1,6 @@
-{% extends "Pharmacist/base.html" %} {% block content %}
+{% extends "Pharmacist/base.html" %}
+
+{% block content %}
 	<style type="text/css">
 		.nav-side-menu {
   overflow: auto;
@@ -285,41 +287,34 @@ body {
     <table class="table table-striped custab">
       
     <thead>
-      <h4>Medicine Id:</h4>
-  <input type="text" name="number">
-  <button>Enter</button>
+
+      <h4>Medicine Code:</h4>
+        <input type="text" id="medicineCode">
+        <button id="search">Search</button>
+
     
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
-    
+
         <tr>
-            <th>Medicine Id</th>
             <th>Medicine Name</th>
             <th>Company Name</th>
             <th>Quantity</th>
-            <th class="text-center">Action</th>
+            <th>Action</th>
         </tr>
+
+      {% for medicine in medicines %}
+            <tr>
+                <td>{{medicine}}</td>
+                <td>{{medicine.company}}</td>
+                <td><input type="number" id="quantity"></td>
+                <td><button id="order">Order</button></td>
+            </tr>
+        {% endfor %}
+
+
+
     </thead>
-            <tr>
-                <td>102A</td>
-                <td>Napa</td>
-                <td>A</td>
-                <td><input type="number" name=""></td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Order</a></td>
-            </tr>
-            <tr>
-                <td>102D</td>
-                <td>Cephalexin</td>
-                <td>B</td>
-                <td><input type="number" name=""></td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Order</a></td>
-            </tr>
-            <tr>
-                <td>526S</td>
-                <td>Amoxicillin</td>
-                <td>C</td>
-                <td><input type="number" name=""></td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Order</a></td>
-            </tr>
+
     </table>
     </div>
 </div>
@@ -329,5 +324,26 @@ body {
 
 </div>
  </div>
+
+<script>
+
+    $('#search').click(function() {
+    var medicineCodes=$("#medicineCode").val();
+
+          $.ajax({
+            url: "afterOrderMedicine",
+            type: "GET",
+
+            data: {
+              medicineCode: medicineCodes
+            },
+            success: function(data){
+
+                alert(medicineCodes);
+            }
+          })
+      })
+
+</script>
     
 {% endblock content %}

@@ -22,7 +22,7 @@ class Patient(models.Model):
     patientName = models.CharField(max_length=44, blank=False, null=False)
     patientDateOfBirth = models.DateField(null=False,blank=False)
     patientSex = models.ForeignKey(PatientSex, on_delete=models.CASCADE, default=1, blank=False,null=False)
-    patientPhoneNumber = models.BigIntegerField(max_length=16, blank=False, null=False)
+    patientPhoneNumber = models.CharField(max_length=16, blank=False, null=False)
     patientBloodGroup = models.ForeignKey(PatientBloodGroup, on_delete=models.CASCADE, default=1, blank=False, null=False)
     patientPassword = models.CharField(max_length=33, null=False, blank=False)
 

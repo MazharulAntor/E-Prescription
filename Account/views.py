@@ -1,12 +1,12 @@
 from django.shortcuts import render, HttpResponse, redirect
 
-from Account.models import Pharmacist
+from Pharmacist.models import Pharmacist
 from Doctor.models import Doctor
 from Company.models import Company
 from Patient.models import Patient
 from django.contrib import messages
 from Doctor.views import makePrescription
-from Pharmacist.views import sellMedicine
+from Pharmacist.views import orderMedicine, afterOrderMedicine
 
 
 def login(request):
@@ -57,10 +57,9 @@ def login(request):
                 request.session['id'] = phar.pharmacistId
 
             if pharmacist:
-                return redirect(sellMedicine)
+                return redirect(orderMedicine)
             else:
-                # return HttpResponse("No Company")
                 messages.info(request, 'no pharmacist')
-                return redirect(sellMedicine)
+                return redirect(login)
 
     return render(request, "Account/login.html", {})
