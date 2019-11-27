@@ -20,6 +20,7 @@ def login(request):
             for com in company:
                 print(com.companyId)
                 request.session['id'] = com.companyId
+                request.session['userType'] ="company"
 
             if company:
                 return redirect('company/addMedicine/')
@@ -36,6 +37,7 @@ def login(request):
             for doc in doctor:
                 print(doc.doctorId)
                 request.session['id'] = doc.doctorId
+                request.session['userType'] ="doctor"
                 print(request.session.get('id'))
 
             if doctor:

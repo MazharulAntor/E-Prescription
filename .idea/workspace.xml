@@ -2,15 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bb3dfee-aa27-4ee2-845f-468216de7589" name="Default Changelist" comment="company medicine list">
+      <change afterPath="$PROJECT_DIR$/Doctor/static/Doctor/ager.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Patient/migrations/0002_prescription.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Patient/migrations/0003_prescribedmedicine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Company/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Company/templates/Company/company medicine list.html" beforeDir="false" afterPath="$PROJECT_DIR$/Company/templates/Company/company medicine list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Company/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/templates/Doctor/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/templates/Doctor/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/templates/Doctor/doctor_make_prescription.html" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/templates/Doctor/doctor_make_prescription.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E_Prescription/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_Prescription/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patient/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patient/migrations/0002_auto_20191105_2123.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patient/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db2.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db2.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,7 +30,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1T1xH4rt07Kzf1WxvJ056UY4eMk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -102,6 +112,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="database" />
     <MESSAGE value="database 2" />
     <MESSAGE value="patient added" />
