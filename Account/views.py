@@ -1,10 +1,12 @@
 from django.shortcuts import render, HttpResponse, redirect
+
+from Pharmacist.models import Pharmacist
 from Doctor.models import Doctor
 from Company.models import Company
 from Patient.models import Patient
 from django.contrib import messages
 from Doctor.views import makePrescription
-
+from Pharmacist.views import orderMedicine, afterOrderMedicine
 
 
 def login(request):
@@ -46,6 +48,20 @@ def login(request):
             else:
                 #return HttpResponse("No Doctor")
                 messages.info(request, 'no doctor found')
+                return redirect(login)
+        elif userType == "Pharmacist":
+            phoneNumber = request.POST.get("number")
+            password = request.POST.get("password")
+            pharmacist = Pharmacist.objects.all().filter(phoneNumber=phoneNumber, password=password)
+
+            for phar in pharmacist:
+                print(phar.pharmacistId)
+                request.session['id'] = phar.pharmacistId
+
+            if pharmacist:
+                return redirect(orderMedicine)
+            else:
+                messages.info(request, 'no pharmacist')
                 return redirect(login)
 
     return render(request, "Account/login.html", {})
