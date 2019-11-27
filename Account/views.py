@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 
+from Patient.views import seePrescription
 from Pharmacist.models import Pharmacist
 from Doctor.models import Doctor
 from Company.models import Company
@@ -62,6 +63,23 @@ def login(request):
                 return redirect(orderMedicine)
             else:
                 messages.info(request, 'no pharmacist')
+                return redirect(login)
+
+        elif userType == "Patient":
+            patientPhoneNumber = request.POST.get("number")
+            patientPassword = request.POST.get("password")
+            patient = Patient.objects.all().filter(patientPhoneNumber=patientPhoneNumber, patientPassword=patientPassword)
+
+            for pat in patient:
+                print(pat.patientId)
+                request.session['id'] = pat.patientId
+                request.session['userType'] ="patient"
+                print(request.session.get('id'))
+
+            if patient:
+                return redirect(seePrescription)
+            else:
+                messages.info(request, 'No user found')
                 return redirect(login)
 
     return render(request, "Account/login.html", {})
