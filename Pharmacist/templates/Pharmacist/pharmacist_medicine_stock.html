@@ -292,31 +292,20 @@ body {
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
     
         <tr>
-            <th>Medicine Id</th>
             <th>Medicine Name</th>
             <th>Company Name</th>
             <th>Quantity</th>
             
         </tr>
     </thead>
+            {% for pharmacist in pharmacists %}
             <tr>
-                <td>102A</td>
-                <td>Napa</td>
-                <td>A</td>
-                 <td>5000</td>
+                <td>{{pharmacist}}</td>
+                <td>{{pharmacist}}</td>
+                <td>{{pharmacist}}</td>
+
             </tr>
-            <tr>
-                <td>102D</td>
-                <td>Cephalexin</td>
-                <td>B</td>
-                 <td>12000</td>
-            </tr>
-            <tr>
-                <td>526S</td>
-                <td>Amoxicillin</td>
-                <td>C</td>
-                <td>10000</td>
-            </tr>
+            {% endfor %}
     </table>
     </div>
 </div>

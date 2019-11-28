@@ -18,7 +18,7 @@ class Order(models.Model):
     orderId = models.AutoField(primary_key=True)
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
     pharmacist = models.ForeignKey(Pharmacist, on_delete=models.CASCADE)
-    quantity = models.CharField(max_length=50, blank=False, null=False)
+    quantity = models.CharField(max_length=20, blank=False, null=False)
     confirmationState = models.CharField(max_length=50, blank=False, null=False)
 
     def __str__(self):
