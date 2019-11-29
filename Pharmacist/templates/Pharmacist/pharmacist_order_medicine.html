@@ -251,25 +251,26 @@ body {
 
                 
                 </li>
-
-
                 <a href="{% url 'sellMedicine' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Sell Medicine 
-                </li> 
+                  </li>
                 </a>
                 <a href="{% url 'orderMedicine' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed active">
                   <i class="fa fa-user fa-lg"></i> Order Medicine 
-                </li>
+                  </li>
                 </a>
                 <a href="{% url 'medicineStock' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Medicine Stock 
-                </li>   
-                </a>  
-               
-                 
+                  </li>
+                </a>
+                <a href="{% url 'myOrders' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed ">
+                  <i class="fa fa-user fa-lg"></i> My Orders
+                  </li>
+                </a>
             </ul>
      </div>
 </div>
@@ -312,7 +313,7 @@ body {
                 <td>{{medicine.company}}</td>
                 <form action="{% url 'orderMedicine' %}" method="post">
                     {% csrf_token %}
-                <td><input type="number" id="quantity" name="quantity"></td>
+                <td><input type="text" id="quantity" name="quantity"></td>
                     <td><input type="number" value={{medicine.medicineId}} name="mid" hidden></td>
                 <td><button id="order" type="submit">Order</button></td>
                     </form>

@@ -52,3 +52,5 @@ class PrescribedMedicine(models.Model):
     prescribedMedicineTakenQuantity = models.CharField(max_length=11)
     prescribedMedicinePrescriptioin = models.ForeignKey(Prescription,on_delete=models.CASCADE,null=False,blank=False)
 
+    def __int__(self):
+        return self.prescribedMedicineId

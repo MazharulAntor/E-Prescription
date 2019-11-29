@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from Company.models import Medicine
-from Pharmacist.models import Pharmacist, Order
+from Pharmacist.models import Pharmacist, MedicineStock, Order
+from django.utils import timezone
 
 def orderMedicine(request):
     try:
@@ -10,8 +11,8 @@ def orderMedicine(request):
             quantity=request.POST.get('quantity')
             print(quantity)
             mid = request.POST.get('mid')
-            order = addOrder(request,mid,quantity,1)
-            return redirect(sellMedicine)
+            addOrder(request,mid,quantity,1)
+            return redirect(myOrders)
 
         medicineCode = request.POST.get('medicineCode')
         medicines = addOrder(request,medicineCode,0)
@@ -26,13 +27,14 @@ def orderMedicine(request):
 def addOrder(request,medicineCode,quantity,order=None):
     pid = request.session.get('id')
     pharmacist = Pharmacist.objects.get(pharmacistId=pid)
+    mediciness = Medicine.objects.get(medicineId=medicineCode)
     medicines = Medicine.objects.all().filter(medicineId=medicineCode)
 
     if order:
         print ('Before order')
-        orders = Order(medicine=medicines, pharmacist=pharmacist, quantity=quantity, confirmationState='Pending')
+        orders = Order(medicine=mediciness, pharmacist=pharmacist, quantity=quantity, confirmationState='Pending')
         orders.save()
-        print (pharmacist.storeName)
+        print('After order')
         return order
     return medicines
 
@@ -41,10 +43,15 @@ def sellMedicine(request):
 
 def medicineStock(request):
     pid = request.session.get('id')
-    print (pid)
-    pharmacists = Pharmacist.objects.all().filter(pharmacistId=pid)
-    print (pharmacists)
-    return render(request, "Pharmacist/pharmacist_medicine_stock.html", {'pharmacists': pharmacists})
+    pharmacists = Pharmacist.objects.get(pharmacistId=pid)
+    medicineStocks = MedicineStock.objects.all().filter(pharmacist=pharmacists)
+    return render(request, "Pharmacist/pharmacist_medicine_stock.html", {'medicineStocks': medicineStocks})
 
 def dashboard(request):
     return render(request, "Pharmacist/pharmacist_dashboard.html")
+
+def myOrders(request):
+    pid = request.session.get('id')
+    pharmacists = Pharmacist.objects.get(pharmacistId=pid)
+    orders = Order.objects.all().filter(pharmacist=pharmacists)
+    return render(request, "Pharmacist/pharmacist_my_order_list.html", {'orders': orders})

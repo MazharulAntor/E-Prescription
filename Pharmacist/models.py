@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 from Company.models import Company, Medicine
 
 
@@ -19,7 +19,8 @@ class Order(models.Model):
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
     pharmacist = models.ForeignKey(Pharmacist, on_delete=models.CASCADE)
     quantity = models.CharField(max_length=20, blank=False, null=False)
-    confirmationState = models.CharField(max_length=50, blank=False, null=False)
+    confirmationState = models.CharField(max_length=20, blank=False, null=False)
+    deliveryDate= models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.confirmationState

@@ -262,12 +262,12 @@ body {
                 </li>
                 </a>
                 <a href="{% url 'medicineStock' %}">
-                  <li data-toggle="collapse" data-target="#service" class="collapsed active">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Medicine Stock 
                 </li>   
                 </a>
                 <a href="{% url 'myOrders' %}">
-                  <li data-toggle="collapse" data-target="#service" class="collapsed ">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed active">
                   <i class="fa fa-user fa-lg"></i> My Orders
                 </li>
                 </a>
@@ -298,14 +298,18 @@ body {
             <th>Medicine Name</th>
             <th>Company Name</th>
             <th>Quantity</th>
+            <th>Status</th>
+            <th>Delivery Date</th>
             
         </tr>
     </thead>
-            {% for medicineStock in medicineStocks %}
+            {% for order in orders %}
             <tr>
-                <td>{{medicineStock.medicine}}</td>
-                <td>{{medicineStock.medicine.company}}</td>
-                <td>{{medicineStock.quantity}}</td>
+                <td>{{order.medicine}}</td>
+                <td>{{order.medicine.company}}</td>
+                <td>{{order.quantity}}</td>
+                <td>{{order.confirmationState}}</td>
+                <td>{{order.deliveryDate}}</td>
 
             </tr>
             {% endfor %}
