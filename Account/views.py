@@ -7,7 +7,7 @@ from Company.models import Company
 from Patient.models import Patient
 from django.contrib import messages
 from Doctor.views import makePrescription
-from Pharmacist.views import orderMedicine
+from Pharmacist.views import sellMedicine
 
 
 def login(request):
@@ -60,7 +60,7 @@ def login(request):
                 request.session['id'] = phar.pharmacistId
 
             if pharmacist:
-                return redirect(orderMedicine)
+                return redirect(sellMedicine)
             else:
                 messages.info(request, 'no pharmacist')
                 return redirect(login)

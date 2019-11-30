@@ -48,8 +48,8 @@ class PrescribedMedicine(models.Model):
     prescribedMedicineFrequancyQuantity = models.CharField(max_length=11)
     prescribedMedicineDuration = models.CharField(max_length=11,null=False,blank=False)
     prescribedMedicineMedicine = models.ForeignKey(Medicine,on_delete=models.CASCADE,null=False,blank=False)
-    prescribedMedicineQuantity = models.CharField(max_length=11)
-    prescribedMedicineTakenQuantity = models.CharField(max_length=11)
+    prescribedMedicineQuantity = models.IntegerField(max_length=11)
+    prescribedMedicineTakenQuantity = models.IntegerField(max_length=11)
     prescribedMedicinePrescriptioin = models.ForeignKey(Prescription,on_delete=models.CASCADE,null=False,blank=False)
 
     def __int__(self):
