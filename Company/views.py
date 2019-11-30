@@ -3,6 +3,9 @@ from django.shortcuts import render, redirect
 
 from Company.models import Medicine, MedicineForm, MedicineType, Company
 
+from Account.views import login
+
+
 
 def medicineList(request):
     companyId = request.session.get('id')
@@ -16,14 +19,24 @@ def addMedicine(request):
     return render(request, "Company/company_add_medicine.html", {})
 
 
-def afterAddMedicine(request):
+def getAddMedicinePage(request):
+        companyId = request.session.get('id')
+        userType = request.session.get('userType')
+        print("type")
+        print(userType)
+        if 'userType' not in request.session:
+            return redirect(login)
+        if 'id' not in request.session:
+            return redirect(login)
+        if userType!="company":
+            return redirect(login)
 
         if request.method == "POST":
             name = request.POST["name"]
             tabletFormId = request.POST["tabletForm"]
             typeId = request.POST["type"]
             quantity = request.POST["quantity"]
-            companyId = request.session.get('id')
+            
             company = Company.objects.get(companyId=companyId)
             type=MedicineType.objects.get(medicineTypeId=typeId)
             tabletForm = MedicineForm.objects.get(medicineFormId=tabletFormId)

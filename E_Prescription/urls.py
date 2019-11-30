@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from Company.views import afterAddMedicine
+#from Company.views import afterAddMedicine
 
 urlpatterns = [
     path('admin/', admin.site.urls),

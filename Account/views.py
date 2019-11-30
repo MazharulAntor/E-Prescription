@@ -5,7 +5,7 @@ from Doctor.models import Doctor
 from Company.models import Company
 from Patient.models import Patient
 from django.contrib import messages
-from Doctor.views import makePrescription
+from Doctor.views import getMakePrescriptionPage
 from Pharmacist.views import orderMedicine, afterOrderMedicine
 
 
@@ -22,7 +22,7 @@ def login(request):
             for com in company:
                 print(com.companyId)
                 request.session['id'] = com.companyId
-                request.session['userType'] ="company"
+                request.session['userType'] = "company"
 
             if company:
                 return redirect('company/addMedicine/')
@@ -44,7 +44,7 @@ def login(request):
 
             if doctor:
                 #return render(request, "Doctor/doctor_make_prescription.html", {})
-                return redirect(makePrescription)
+                return redirect(getMakePrescriptionPage)
             else:
                 #return HttpResponse("No Doctor")
                 messages.info(request, 'no doctor found')
