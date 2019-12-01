@@ -19,7 +19,7 @@ class Order(models.Model):
     orderId = models.AutoField(primary_key=True)
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
     pharmacist = models.ForeignKey(Pharmacist, on_delete=models.CASCADE)
-    quantity = models.CharField(max_length=20, blank=False, null=False)
+    quantity = models.IntegerField(max_length=20, blank=False, null=False)
     confirmationState = models.CharField(max_length=20, blank=False, null=False)
     deliveryDate= models.DateField(blank=True, null=True)
 
@@ -43,3 +43,11 @@ class SoldMedicine(models.Model):
     soldDate=models.DateField(default=timezone.now)
     def __int__(self):
         return self.soldMedicineId
+
+class SoldMedicineWithoutPrescription(models.Model):
+    soldMedicineWithoutPrescriptionId=models.AutoField(primary_key=True)
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    pharmacist = models.ForeignKey(Pharmacist, on_delete=models.CASCADE)
+    quantity = models.IntegerField(max_length=50, blank=False, null=False)
+    def __int__(self):
+        return self.soldMedicineWithoutPrescriptionId

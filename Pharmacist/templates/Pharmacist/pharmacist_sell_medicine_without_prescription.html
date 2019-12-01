@@ -250,12 +250,12 @@ body {
 
 
                 <a href="{% url 'sellMedicine' %}">
-                  <li data-toggle="collapse" data-target="#service" class="collapsed active">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed">
                   <i class="fa fa-user fa-lg"></i> Sell Medicine 
                 </li> 
                 </a>
                 <a href="{% url 'sellMedicineWithoutPrescription' %}">
-                  <li data-toggle="collapse" data-target="#service" class="collapsed">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed active">
                   <i class="fa fa-user fa-lg"></i> Sell Medicine Without Prescription
                 </li>
                 </a>
@@ -293,134 +293,47 @@ body {
     <table class="table table-striped custab">
       
     <thead>
-      <h4>Mobile Number:</h4>
-      <form action="{% url 'sellMedicine' %}" method="post">
+      <h4>Medicine Code:</h4>
+      <form action="{% url 'sellMedicineWithoutPrescription' %}" method="post">
           {% csrf_token %}
-          <input type="text" name="number">
+          <input type="number" name="medCode">
           <input type="submit" name="search" value="Search"/>
       </form>
     
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
-    <h4>Prescription List:</h4>
         <tr>
-            <th>Patient Name</th>
-            <th>DOB</th>
-            <th>Date</th>
-            <th class="text-center">Action</th>
+            <th>Medicine Name</th>
+            <th>Company Name</th>
+            <th>Quantity</th>
+            <th>Action</th>
         </tr>
     </thead>
-            {% for prescription in prescriptions %}
+            {% for medicine in medicines %}
             <tr>
-                <td>{{prescription.prescriptionPatient}}</td>
-                <td>{{prescription.prescriptionPatient.patientDateOfBirth}}</td>
-                <td>{{prescription.prescriptionIssueDate}}</td>
-                <form action="{% url 'sellMedicine' %}" method="post">
-                {% csrf_token %}
-                <td><input type="submit" name="view" value="View"/></td>
-                    <td><input type="number" value={{prescription.prescriptionId}} name="presid" hidden></td>
-                </form>
+                <td>{{medicine}}</td>
+                <td>{{medicine.company}}</td>
+                <form action="{% url 'sellMedicineWithoutPrescription' %}" method="post">
+                    {% csrf_token %}
+                <td><input type="number" id="quantity" name="quantity"></td>
+                <td><input name="sell" type="submit" value="Sell"></td>
+                    <td><input type="number" value={{medicine.medicineId}} name="mid" hidden></td>
+
+                    </form>
             </tr>
         {% endfor %}
+        <div class="">
+                                    {% for message in messages %}
+                                   {{message}}
+                                    {% endfor %}
+                                </div>
     </table>
     </div>
 </div>
 </div>
   </div>
-  <div class="rightSection">
-
-
-            <div class="">
-            
-              <div class="container">
-            <div class="row col-md-12 col-md-offset-5 custyle">
-            <table class="table table-striped custab">
-            <thead>
-            <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
-            <h4>Prescription Medicine:</h4>
-                <tr>
-                    <th>Medicine</th>
-                    <th>Frequency</th>
-                    <th>Duration</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-                {% for prescribedMedicine in prescribedMedicines %}
-            <tr>
-                <td>{{prescribedMedicine.prescribedMedicineMedicine}}</td>
-                <td>{{prescribedMedicine.prescribedMedicineFrequancy}}</td>
-                <td>{{prescribedMedicine.prescribedMedicineDuration}}</td>
-                <form action="{% url 'sellMedicine' %}" method="post">
-                {% csrf_token %}
-                <td><input type="submit" name="details" value="Details"/></td>
-                    <td><input type="number" value={{prescribedMedicine.prescribedMedicineId}} name="presMedid" hidden></td>
-                </form>
-            </tr>
-                {% endfor %}
-            </table>
-            </div>
-        </div>
-        </div>
-      
-        <div class="container mb-5 mt-5">
-            <div class="pricing card-deck flex-column flex-md-row mb-3">
-                <div class="card card-pricing text-center px-3 mb-4">
-                    <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Details</span>
-
-                    <div class="bg-transparent card-header pt-4 border-0">
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Name: <span>{% for prescribedMedicines in prescribedMedicine %}
-                                   {{prescribedMedicines.prescribedMedicineMedicine}}
-                                    {% endfor %}</span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Type: <span>{% for prescribedMedicines in prescribedMedicine %}
-                                   {{prescribedMedicines.prescribedMedicineMedicine.type.medicineTypeName}}
-                                    {% endfor %}</span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Comapny: <span>{% for prescribedMedicines in prescribedMedicine %}
-                                   {{prescribedMedicines.prescribedMedicineMedicine.company}}
-                                    {% endfor %}</span></h5><hr>
-
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Frequency: <span>{% for prescribedMedicines in prescribedMedicine %}
-                                   {{prescribedMedicines.prescribedMedicineFrequancy}}
-                                    {% endfor %}</span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Quantity: <span>{% for prescribedMedicines in prescribedMedicine %}
-                                   {{prescribedMedicines.prescribedMedicineQuantity}}
-                                    {% endfor %}</span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Duration: <span>{% for prescribedMedicines in prescribedMedicine %}
-                                   {{prescribedMedicines.prescribedMedicineDuration}}
-                                    {% endfor %}</span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Taken: <span>{% for prescribedMedicines in prescribedMedicine %}
-                                   {{prescribedMedicines.prescribedMedicineTakenQuantity}}
-                                    {% endfor %}</span></h5>
-                    </div>
-                    <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">
-                      
-                    </span>
-                    <form action="{% url 'sellMedicine' %}" method="post">
-                    {% csrf_token %}
-                    <input type="number" name="quantity">
-                    <input type="submit" name="sell" value="Sell">
-                        <div class="form-group alert alert-danger">
-                                    {% for message in messages %}
-                                   {{message}}
-                                    {% endfor %}
-                                </div>
-                    </form>
-                  <div class="card-body pt-0">
-                        <ul class="list-unstyled mb-4">
-                            
-                        </ul>
-                        <!-- <button type="button" class="btn btn-outline-secondary mb-3"></button> -->
-                  </div>
-                </div>
-            </div>
-        </div>
-        
-        
-       
-</div>
 
   </div>
-  
 
 </div>
- </div>
     
 {% endblock content %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from Company.models import Medicine
-from Pharmacist.models import Pharmacist, MedicineStock, Order, SoldMedicine
+from Pharmacist.models import *
 from django.utils import timezone
 from Patient.models import Prescription, Patient, PrescribedMedicine
 from django.contrib import messages
@@ -142,3 +142,37 @@ def myOrders(request):
     pharmacists = Pharmacist.objects.get(pharmacistId=pid)
     orders = Order.objects.all().filter(pharmacist=pharmacists)
     return render(request, "Pharmacist/pharmacist_my_order_list.html", {'orders': orders})
+
+def sellMedicineWithoutPrescription(request):
+    try:
+        if request.POST.get('search'):
+            medCode = request.POST.get('medCode')
+            request.session['medCode'] = medCode
+            medicines = Medicine.objects.all().filter(medicineId=medCode)
+            return render(request, "Pharmacist/pharmacist_sell_medicine_without_prescription.html",{'medicines': medicines})
+        elif request.POST.get('sell'):
+            quantity = int(request.POST.get('quantity'))
+            medCode= int(request.session.get('medCode'))
+            medicine = Medicine.objects.get(medicineId=medCode)
+            pid = request.session.get('id')
+            pharmacistObj = Pharmacist.objects.get(pharmacistId=pid)
+            stocks= MedicineStock.objects.all().filter(pharmacist=pharmacistObj)
+            print (stocks)
+            for stock in stocks:
+                if stock.medicine.medicineId == medCode:
+                  print (221)
+                  if stock.quantity >= quantity:
+                    print (222)
+                    soldMedicineWithoutPrescription=SoldMedicineWithoutPrescription(medicine=medicine,pharmacist=pharmacistObj,quantity=quantity)
+                    soldMedicineWithoutPrescription.save()
+                    stock.quantity = stock.quantity - quantity
+                    stock.save()
+                    return render(request, "Pharmacist/pharmacist_sell_medicine_without_prescription.html")
+                  else:
+                   messages.info(request, 'Sell Error! Medicine stock not enough!')
+                else:
+                  messages.info(request, 'Sell Error! Medicine not available!')
+        return render(request, "Pharmacist/pharmacist_sell_medicine_without_prescription.html")
+    except:
+        return render(request, "Pharmacist/pharmacist_sell_medicine_without_prescription.html")
+

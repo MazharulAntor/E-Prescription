@@ -1,6 +1,6 @@
 from django.urls import path
 
-from Pharmacist.views import orderMedicine, medicineStock, sellMedicine, dashboard, myOrders
+from Pharmacist.views import orderMedicine, medicineStock, sellMedicine, dashboard, myOrders, sellMedicineWithoutPrescription
 
 urlpatterns = [
     path('orderMedicine/', orderMedicine, name='orderMedicine'),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('medicineStock/', medicineStock, name='medicineStock'),
     path('dashboard/', dashboard, name='dashboard'),
     path('myOrders/', myOrders, name='myOrders'),
+    path('sellMedicineWithoutPrescription/', sellMedicineWithoutPrescription, name='sellMedicineWithoutPrescription'),
 ]
