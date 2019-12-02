@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import addMedicine, afterAddMedicine, medicineList, viewOrder
+
+from .views import addMedicine, getAddMedicinePage, medicineList, viewOrder
 
 urlpatterns = [
-    path('addMedicine/', afterAddMedicine, name="addmedicine"),
+    path('addMedicine/', getAddMedicinePage, name="addmedicine"),
     path('medicineList/',medicineList,name='medicineList'),
-    path('viewOrder/',viewOrder,name='viewOrder')
+    path('viewOrder/',viewOrder,name='viewOrder'),
+
 ]
