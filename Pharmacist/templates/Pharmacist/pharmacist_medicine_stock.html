@@ -242,8 +242,8 @@ body {
   
             <ul id="menu-content" class="menu-content collapse out">
                 <li class="">
-                  <a href="#">
-                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                  <a href="{% url 'dashboard' %}">
+                  <i class="fa fa-dashboard fa-lg"></i>Dashboard
                   </a>
                 </li>
 
@@ -251,20 +251,30 @@ body {
                 </li>
 
 
-                <a href="pharmacist sell medicine.html">
+                <a href="{% url 'sellMedicine' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Sell Medicine 
                 </li> 
                 </a>
-                <a href="pharmacist order medicine.html">
+                <a href="{% url 'sellMedicineWithoutPrescription' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed">
+                  <i class="fa fa-user fa-lg"></i> Sell Medicine Without Prescription
+                </li>
+                </a>
+                <a href="{% url 'orderMedicine' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Order Medicine 
                 </li>
                 </a>
-                <a href="#">
+                <a href="{% url 'medicineStock' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed active">
                   <i class="fa fa-user fa-lg"></i> Medicine Stock 
                 </li>   
+                </a>
+                <a href="{% url 'myOrders' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed ">
+                  <i class="fa fa-user fa-lg"></i> My Orders
+                </li>
                 </a>
                
                  
@@ -285,38 +295,25 @@ body {
     <table class="table table-striped custab">
       
     <thead>
-      <h4>Medicine Id:</h4>
-  <input type="text" name="number">
-  <button>Enter</button>
+
     
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
     
         <tr>
-            <th>Medicine Id</th>
             <th>Medicine Name</th>
             <th>Company Name</th>
             <th>Quantity</th>
             
         </tr>
     </thead>
+            {% for medicineStock in medicineStocks %}
             <tr>
-                <td>102A</td>
-                <td>Napa</td>
-                <td>A</td>
-                 <td>5000</td>
+                <td>{{medicineStock.medicine}}</td>
+                <td>{{medicineStock.medicine.company}}</td>
+                <td>{{medicineStock.quantity}}</td>
+
             </tr>
-            <tr>
-                <td>102D</td>
-                <td>Cephalexin</td>
-                <td>B</td>
-                 <td>12000</td>
-            </tr>
-            <tr>
-                <td>526S</td>
-                <td>Amoxicillin</td>
-                <td>C</td>
-                <td>10000</td>
-            </tr>
+            {% endfor %}
     </table>
     </div>
 </div>

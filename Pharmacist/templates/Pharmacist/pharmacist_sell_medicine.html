@@ -227,10 +227,8 @@ body {
   <div class="header-right">
 
     <select class="headDropdown">
-      <a href="#">NNN</a>
     <option><a href="https://www.google.com">Logout</a></option>
-    <option>Change Password</option>
-  </select>
+    </select>
   </div>
   
 </div>
@@ -242,8 +240,8 @@ body {
   
             <ul id="menu-content" class="menu-content collapse out">
                 <li class="">
-                  <a href="#">
-                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                  <a href="{% url 'dashboard' %}">
+                  <i class="fa fa-dashboard fa-lg"></i>Dashboard
                   </a>
                 </li>
 
@@ -251,21 +249,31 @@ body {
                 </li>
 
 
-                <a href="pharmacist sell medicine.html">
+                <a href="{% url 'sellMedicine' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed active">
                   <i class="fa fa-user fa-lg"></i> Sell Medicine 
                 </li> 
                 </a>
-                <a href="pharmacist order medicine.html">
+                <a href="{% url 'sellMedicineWithoutPrescription' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed">
+                  <i class="fa fa-user fa-lg"></i> Sell Medicine Without Prescription
+                </li>
+                </a>
+                <a href="{% url 'orderMedicine' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Order Medicine 
                 </li>
                 </a>
-                <a href="pharmacist medicine stock.html">
+                <a href="{% url 'medicineStock' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Medicine Stock 
                 </li>   
-                </a>   
+                </a>
+                <a href="{% url 'myOrders' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed ">
+                  <i class="fa fa-user fa-lg"></i> My Orders
+                </li>
+                </a>
                
                  
             </ul>
@@ -286,36 +294,33 @@ body {
       
     <thead>
       <h4>Mobile Number:</h4>
-  <input type="text" name="number">
-  <button>Enter</button>
+      <form action="{% url 'sellMedicine' %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="number">
+          <input type="submit" name="search" value="Search"/>
+      </form>
     
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
     <h4>Prescription List:</h4>
         <tr>
             <th>Patient Name</th>
+            <th>DOB</th>
             <th>Date</th>
-            <th>Age</th>
             <th class="text-center">Action</th>
         </tr>
     </thead>
+            {% for prescription in prescriptions %}
             <tr>
-                <td>X</td>
-                <td>1/1/19</td>
-                <td>18</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> View</a></td>
+                <td>{{prescription.prescriptionPatient}}</td>
+                <td>{{prescription.prescriptionPatient.patientDateOfBirth}}</td>
+                <td>{{prescription.prescriptionIssueDate}}</td>
+                <form action="{% url 'sellMedicine' %}" method="post">
+                {% csrf_token %}
+                <td><input type="submit" name="view" value="View"/></td>
+                    <td><input type="number" value={{prescription.prescriptionId}} name="presid" hidden></td>
+                </form>
             </tr>
-            <tr>
-                <td>Y</td>
-                <td>1/1/19</td>
-                <td>19</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> View</a></td>
-            </tr>
-            <tr>
-                <td>Z</td>
-                <td>1/1/19</td>
-                <td>28</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> View</a></td>
-            </tr>
+        {% endfor %}
     </table>
     </div>
 </div>
@@ -339,24 +344,18 @@ body {
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
-                    <tr>
-                        <td>X</td>
-                        <td>1/1/1</td>
-                        <td>30</td>
-                        <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a></td>
-                    </tr>
-                    <tr>
-                        <td>Y</td>
-                        <td>1/1/1</td>
-                        <td>45</td>
-                        <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Deteils</a></td>
-                    </tr>
-                    <tr>
-                        <td>Z</td>
-                        <td>1/1/1</td>
-                        <td>30</td>
-                        <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a></td>
-                    </tr>
+                {% for prescribedMedicine in prescribedMedicines %}
+            <tr>
+                <td>{{prescribedMedicine.prescribedMedicineMedicine}}</td>
+                <td>{{prescribedMedicine.prescribedMedicineFrequancy}}</td>
+                <td>{{prescribedMedicine.prescribedMedicineDuration}}</td>
+                <form action="{% url 'sellMedicine' %}" method="post">
+                {% csrf_token %}
+                <td><input type="submit" name="details" value="Details"/></td>
+                    <td><input type="number" value={{prescribedMedicine.prescribedMedicineId}} name="presMedid" hidden></td>
+                </form>
+            </tr>
+                {% endfor %}
             </table>
             </div>
         </div>
@@ -368,21 +367,42 @@ body {
                     <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Details</span>
 
                     <div class="bg-transparent card-header pt-4 border-0">
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Name: <span></span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Type: <span></span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Comapny: <span></span></h5><hr>
+                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Name: <span>{% for prescribedMedicines in prescribedMedicine %}
+                                   {{prescribedMedicines.prescribedMedicineMedicine}}
+                                    {% endfor %}</span></h5><hr>
+                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Type: <span>{% for prescribedMedicines in prescribedMedicine %}
+                                   {{prescribedMedicines.prescribedMedicineMedicine.type.medicineTypeName}}
+                                    {% endfor %}</span></h5><hr>
+                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Comapny: <span>{% for prescribedMedicines in prescribedMedicine %}
+                                   {{prescribedMedicines.prescribedMedicineMedicine.company}}
+                                    {% endfor %}</span></h5><hr>
 
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Frequency: <span></span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Frequency Quantity: <span></span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Duration: <span></span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Taken: <span></span></h5>
+                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Frequency: <span>{% for prescribedMedicines in prescribedMedicine %}
+                                   {{prescribedMedicines.prescribedMedicineFrequancy}}
+                                    {% endfor %}</span></h5><hr>
+                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Quantity: <span>{% for prescribedMedicines in prescribedMedicine %}
+                                   {{prescribedMedicines.prescribedMedicineQuantity}}
+                                    {% endfor %}</span></h5><hr>
+                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Duration: <span>{% for prescribedMedicines in prescribedMedicine %}
+                                   {{prescribedMedicines.prescribedMedicineDuration}}
+                                    {% endfor %}</span></h5><hr>
+                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Taken: <span>{% for prescribedMedicines in prescribedMedicine %}
+                                   {{prescribedMedicines.prescribedMedicineTakenQuantity}}
+                                    {% endfor %}</span></h5>
                     </div>
                     <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">
                       
                     </span>
-                    <input type="number" name="" >
-                    <button>Sell</button><br>
-                    
+                    <form action="{% url 'sellMedicine' %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" name="quantity">
+                    <input type="submit" name="sell" value="Sell">
+                        <div class="form-group alert alert-danger">
+                                    {% for message in messages %}
+                                   {{message}}
+                                    {% endfor %}
+                                </div>
+                    </form>
                   <div class="card-body pt-0">
                         <ul class="list-unstyled mb-4">
                             

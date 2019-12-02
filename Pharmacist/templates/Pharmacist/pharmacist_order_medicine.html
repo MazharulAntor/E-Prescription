@@ -244,32 +244,38 @@ body {
   
             <ul id="menu-content" class="menu-content collapse out">
                 <li class="">
-                  <a href="#">
-                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                  <a href="{% url 'dashboard' %}">
+                  <i class="fa fa-dashboard fa-lg"></i>Dashboard
                   </a>
                 </li>
 
                 
                 </li>
-
-
-                <a href="pharmacist sell medicine.html">
+                <a href="{% url 'sellMedicine' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Sell Medicine 
-                </li> 
+                  </li>
                 </a>
-                <a href="pharmacist order medicine.html">
-                  <li data-toggle="collapse" data-target="#service" class="collapsed active">
-                  <i class="fa fa-user fa-lg"></i> Order Medicine 
+                <a href="{% url 'sellMedicineWithoutPrescription' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed">
+                  <i class="fa fa-user fa-lg"></i> Sell Medicine Without Prescription
                 </li>
                 </a>
-                <a href="pharmacist medicine stock.html">
+                <a href="{% url 'orderMedicine' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed active">
+                  <i class="fa fa-user fa-lg"></i> Order Medicine 
+                  </li>
+                </a>
+                <a href="{% url 'medicineStock' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed ">
                   <i class="fa fa-user fa-lg"></i> Medicine Stock 
-                </li>   
-                </a>  
-               
-                 
+                  </li>
+                </a>
+                <a href="{% url 'myOrders' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed ">
+                  <i class="fa fa-user fa-lg"></i> My Orders
+                  </li>
+                </a>
             </ul>
      </div>
 </div>
@@ -289,9 +295,11 @@ body {
     <thead>
 
       <h4>Medicine Code:</h4>
-        <input type="text" id="medicineCode">
-        <button id="search">Search</button>
-
+      <form action="{% url 'orderMedicine' %}" method="post">
+          {% csrf_token %}
+        <input type="text" id="medicineCode" name="medicineCode">
+        <button id="search" type="submit">Search</button>
+        </form>
     
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
 
@@ -302,18 +310,23 @@ body {
             <th>Action</th>
         </tr>
 
-      {% for medicine in medicines %}
+    </thead>
+        <tbody>
+        {% for medicine in medicines %}
             <tr>
                 <td>{{medicine}}</td>
                 <td>{{medicine.company}}</td>
-                <td><input type="number" id="quantity"></td>
-                <td><button id="order">Order</button></td>
+                <form action="{% url 'orderMedicine' %}" method="post">
+                    {% csrf_token %}
+                <td><input type="number" id="quantity" name="quantity"></td>
+                    <td><input type="number" value={{medicine.medicineId}} name="mid" hidden></td>
+                <td><button id="order" type="submit">Order</button></td>
+                    </form>
             </tr>
         {% endfor %}
+        </tbody>
 
 
-
-    </thead>
 
     </table>
     </div>
@@ -325,25 +338,5 @@ body {
 </div>
  </div>
 
-<script>
-
-    $('#search').click(function() {
-    var medicineCodes=$("#medicineCode").val();
-
-          $.ajax({
-            url: "afterOrderMedicine",
-            type: "GET",
-
-            data: {
-              medicineCode: medicineCodes
-            },
-            success: function(data){
-
-                alert(medicineCodes);
-            }
-          })
-      })
-
-</script>
     
 {% endblock content %}
