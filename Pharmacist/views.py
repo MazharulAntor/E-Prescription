@@ -30,11 +30,13 @@ def addOrder(request,medicineCode,quantity,order=None):
     pid = request.session.get('id')
     pharmacist = Pharmacist.objects.get(pharmacistId=pid)
     mediciness = Medicine.objects.get(medicineId=medicineCode)
+    comId=mediciness.company.companyId
+    company=Company.objects.get(companyId=comId)
     medicines = Medicine.objects.all().filter(medicineId=medicineCode)
 
     if order:
         print ('Before order')
-        orders = Order(medicine=mediciness, pharmacist=pharmacist, quantity=quantity, confirmationState='Pending')
+        orders = Order(medicine=mediciness, company=company, pharmacist=pharmacist, quantity=quantity, confirmationState='Pending')
         orders.save()
         print('After order')
         return order

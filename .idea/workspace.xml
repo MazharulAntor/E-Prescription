@@ -40,9 +40,12 @@
       <change beforePath="$PROJECT_DIR$/Doctor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E_Prescription/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_Prescription/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Patient/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/migrations/0001_initial.py" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/Patient/migrations/0002_auto_20191130_1335.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Patient/migrations/0002_auto_20191130_2221.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Patient/migrations/0003_auto_20191130_1422.py" beforeDir="false" />
+=======
+>>>>>>> e62f9df3ed8bef3fbed98cd72b1f59bd1345f1ff
       <change beforePath="$PROJECT_DIR$/Patient/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Patient/templates/Patient/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/templates/Patient/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Patient/templates/Patient/patient_prescription.html" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/templates/Patient/patient_prescription.html" afterDir="false" />

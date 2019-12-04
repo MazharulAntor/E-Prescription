@@ -1,10 +1,18 @@
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render, redirect
 
+<<<<<<< HEAD
 from Company.models import Medicine, MedicineForm, MedicineType, Company, AntibioticType
 from Pharmacist.models import Pharmacist
 from Pharmacist.models import SoldMedicineWithoutPrescription,Pharmacist
 from django.core import serializers
+=======
+from Company.models import Medicine, MedicineForm, MedicineType, Company
+
+from Pharmacist.models import Order, Pharmacist, MedicineStock
+
+
+>>>>>>> e62f9df3ed8bef3fbed98cd72b1f59bd1345f1ff
 from Account.views import login
 from django.db.models import Q
 
@@ -61,6 +69,7 @@ def getPharmacistOnId(request):
         pharmacist = Pharmacist.objects.filter(pharmacistId=pharmacistId)
         pharmacistJson = serializers.serialize("json",pharmacist)
         return JsonResponse({"pharmacist": pharmacistJson})
+
 
 
 
@@ -129,3 +138,48 @@ def getMedicineType():
 def getMedicineForm():
     forms = MedicineForm.objects.all()
     return forms
+
+
+def viewOrder(request):
+    cid = request.session.get('id')
+    company = Company.objects.get(companyId=cid)
+    orders = Order.objects.all().filter(company=company)
+    if request.POST.get('update'):
+        status = request.POST.get('status')
+        date = request.POST.get('date')
+        orderId = int(request.POST.get('orderId'))
+        medId = int(request.POST.get('medId'))
+        medicine = Medicine.objects.get(medicineId=medId)
+        pharId = int(request.POST.get('pharId'))
+        quantity = int(request.POST.get('quantity'))
+        pharmacist=Pharmacist.objects.get(pharmacistId=pharId)
+        medicineStocks=MedicineStock.objects.all().filter(pharmacist=pharmacist)
+        stop=0
+        if status=="Accepted":
+            for order in orders:
+                if order.orderId == orderId:
+                    if order.confirmationState != "Delivered":
+                      order.confirmationState=status
+                      order.deliveryDate = date
+                      order.save()
+        if status=="Delivered":
+            for order in orders:
+                if order.orderId == orderId:
+                    if order.confirmationState != "Delivered":
+                       order.confirmationState=status
+                       order.deliveryDate = date
+                       order.save()
+                       for medicineStock in medicineStocks:
+                           if medicineStock.medicine.medicineId == medId:
+                               existQuantity=medicineStock.quantity
+                               quantity=quantity+existQuantity
+                               medicineStock.quantity=quantity
+                               medicineStock.save()
+                               stop=1
+                       if stop!=1:
+                        medicineStock=MedicineStock(medicine=medicine,pharmacist=pharmacist,quantity=quantity)
+                        medicineStock.save()
+
+
+    return render(request, "Company/company_view_order.html", {'orders': orders})
+

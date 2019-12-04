@@ -1,6 +1,5 @@
-{% extends "Company/base.html" %}
-{% block content %}
-	<style type="text/css">
+{% extends "Company/base.html" %} {% block content %}
+	<style>
 		.nav-side-menu {
   overflow: auto;
   font-family: verdana;
@@ -123,9 +122,6 @@
 .header-right{
 	float: right;
 }
-#logoutButton{
-  height: 50px;
-}
 .headDropdown{
 	color: #EEE;
     background: transparent;
@@ -144,13 +140,41 @@
   margin-left: 300px;
 }
 .formContainer{
-  background: transparent;
-  box-shadow: 0 9px 9px silver;
+  background: ;
+  float: left;
+  //box-shadow: 0 9px 9px silver;
   margin: 0 auto;
   padding-bottom: 33px;
   padding-top: 5px;
-  width: 444px;
+  width: 499px;
+
 }
+.custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+    }
+    .container{
+      background: transparent;
+    }
+    .rightSection{
+      background: ;
+      float: right;
+      width: 545px;
+      height: 366px;
+      margin: 0 auto;
+      padding: 9px;
+    }
+    .rightSection .container{
+      background: ;
+      //box-shadow: 0 9px 9px silver;
+    }
 @media (max-width: 767px) {
   .nav-side-menu {
     position: relative;
@@ -202,7 +226,11 @@ body {
     <div class="head">
   <div class="header-right">
 
-    <a href="{% url 'logout' %}"  id="logoutButton" class="btn btn-danger btn-lg">Logout</a>
+    <select class="headDropdown">
+      <a href="#">NNN</a>
+    <option><a href="https://www.google.com">Logout</a></option>
+    <option>Change Password</option>
+  </select>
   </div>
   
 </div>
@@ -213,110 +241,108 @@ body {
         <div class="menu-list">
   
             <ul id="menu-content" class="menu-content collapse out">
-              <a href="">
                 <li class="">
-                  
-                  <i class="fa fa-dashboard fa-lg"></i> Company Dashboard
+                  <a href="{% url 'dashboard' %}">
+                  <i class="fa fa-dashboard fa-lg"></i>Dashboard
+                  </a>
+                </li>
+
                 
                 </li>
-                  </a>
 
-                 <a href="{% url 'medicineList' %}">
+
+                <a href="{% url 'medicineList' %}">
                   <li  data-toggle="collapse" data-target="#products" class="collapsed ">
                  <i class="fa fa-user fa-lg"></i> Medicine List
                 </li>
                 </a>
 
-                <a href="company add medicine.html">
-                  <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+                <a href="{% url 'addmedicine' %}">
+                  <li  data-toggle="collapse" data-target="#products" class="collapsed">
                   <i class="fa fa-user fa-lg"></i> Add Medicine
                 </li>
                 </a>
-                
+
                 <a href="{% url 'viewOrder' %}">
-                  <li  data-toggle="collapse" data-target="#products" class="collapsed ">
+                  <li  data-toggle="collapse" data-target="#products" class="collapsed active">
                   <i class="fa fa-user fa-lg"></i> View Order
                 </li>
                 </a>
 
 
-                
 
-                <a href="{% url 'soldMedicines' %}">
+
+                <a href="company sold medicine.html">
                   <li data-toggle="collapse" data-target="#service" class="collapsed">
-                  <i class="fa fa-user fa-lg"></i> Sold Medicine 
+                  <i class="fa fa-user fa-lg"></i> Sold Medicine
                 </li>
                 </a>
+               
+                 
             </ul>
      </div>
 </div>
 
 <div class="mainContainer">
+ 
+  
+  <div class="leftSection">
       
       <div class="formContainer">
-    <div class="container">
+    
+      <div class="container">
+    <div class="row col-md-12 col-md-offset-5 custyle">
 
+    <table class="table table-striped custab">
+      
+    <thead>
 
-        <form action="{% url 'addmedicine' %}" method="post" name="addmedicine">
-            {% csrf_token %}
-            <h2 style="margin-left: 0px;">Add Medicine</h2>
-            <br>
-            <div class="form-group">
-                <label class="col-sm-5 control-label">Medicine Name*</label>
-                <div class="col-sm-8">
-                    <input type="text" name="name" placeholder="Name" class="form-control" autofocus>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-5 control-label">Form* </label>
-                <div class="col-sm-8">
-                    <select class=" form form-control" name="tabletForm">
-                      <option value="No">--Select one--</option>
-
-                        {% for form in forms %}
-                            <option value="{{form.medicineFormId}}">{{form.medicineFormName}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label  class="col-sm-5 control-label">Type* </label>
-                <div class="col-sm-8">
-                    <select class=" type form-control" name="type">
-                      <option value="Antibiotic">--Select one--</option>
-
-                        {% for type in types %}
-                            <option value="{{type.medicineTypeId}}">{{type.medicineTypeName}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <label class="col-sm-6 control-label">Single Unit Quantity*</label>
-                <div class="col-sm-8">
-                    <input type="number" name="quantity" placeholder="Quantity" class="form-control">
-                </div>
-            </div>
-
-            <!-- /.form-group -->
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <span class="help-block">*Required fields</span>
-                </div>
-            </div>
-
-            <input type="submit" class="btn btn-primary btn-block" value="Add"></button>
-        </form>
-        <!-- /form -->
+    
+    <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
+    
+        <tr>
+            <th>Medicine Name</th>
+            <th>Pharmacist Name</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th></th>
+            <th>Delivery Date</th>
+            <th></th>
+            <th>Action</th>
+            
+        </tr>
+    </thead>
+            {% for order in orders %}
+            <tr>
+                <td>{{order.medicine}}</td>
+                <td>{{order.pharmacist}}</td>
+                <td>{{order.quantity}}</td>
+                <td>{{order.confirmationState}}</td>
+                <form action="{% url 'viewOrder' %}" method="post">
+                {% csrf_token %}
+                <td><select name="status">
+                    <option>--Select--</option>
+                    <option>Accepted</option>
+                    <option>Delivered</option>
+                </select></td>
+                    <td>{{order.deliveryDate}}</td>
+                <td><input type="text" name="date" value="{{order.deliveryDate}}"></td>
+                <td><input type="submit" name="update" value="Update"></td>
+                    <td><input type="number" name="orderId" value="{{order.orderId}}" hidden></td>
+                    <td><input type="number" name="medId" value="{{order.medicine.medicineId}}" hidden></td>
+                    <td><input type="number" name="pharId" value="{{order.pharmacist.pharmacistId}}" hidden></td>
+                    <td><input type="number" name="quantity" value="{{order.quantity}}" hidden></td>
+                </form>
+            </tr>
+            {% endfor %}
+    </table>
     </div>
-    <!-- ./container -->
+</div>
+</div>
   </div>
+
 
 </div>
  </div>
-
+    
 {% endblock content %}
