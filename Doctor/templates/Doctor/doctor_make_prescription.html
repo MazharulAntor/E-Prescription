@@ -133,6 +133,9 @@
 .header-right{
 	float: right;
 }
+#logoutButton{
+  height: 50px;
+}
 .headDropdown{
 	color: #EEE;
     background: transparent;
@@ -253,11 +256,13 @@ body {
     <div class="head">
   <div class="header-right">
 
-    <select class="headDropdown">
+    {% comment %} <select class="headDropdown">
       <a href="#">NNN</a>
     <option><a href="https://www.google.com">Logout</a></option>
     <option>Change Password</option>
-  </select>
+  </select> {% endcomment %}
+  <a href="{% url 'logout' %}" id="logoutButton" class="btn btn-danger btn-lg">Logout</a>
+
   </div>
   
 </div>
@@ -352,7 +357,7 @@ body {
                             <label for="sex" class="col-sm-5 control-label">Sex* </label>
                             <div class="col-sm-8 form-control">
                               {%for patientSex in patientSexes%}
-                                {{patientSex.patientSexName}} <input type="radio" id="patientSex" name="sex" value="{{patientSex.patientSexId}}">
+                                {{patientSex.patientSexName}} <input type="radio" id="{{patientSex.patientSexId}}" name="sex" value="{{patientSex.patientSexId}}">
                               {%endfor%}
                                 
                             </div>
@@ -399,6 +404,11 @@ body {
                                             <option value="null">
                                               --select one--
                                             </option>
+                                            
+                                            {% for medicine in medicines %}
+                                                <option value="{{medicine.medicineId}}">{{medicine.medicineName}}</option>
+
+                                            {% endfor%}
                                             
                     </select>
                                     </div>
@@ -517,8 +527,23 @@ body {
         medicineFrequancyQuantity:null,
         medicineTotalQuantity:null
       }
+
+      //class to store addedmedicien
+      class AddedMedicinesClass{
+        constructor(medicineId,medicineFrequency,medicineDuretion,medicineTakenQuantity,medicineFrequancyQuantity,medicineTotalQuantity){
+          this.medicineId=medicineId;
+          this.medicineFrequency=medicineFrequency;
+          this.medicineDuretion=medicineDuretion;
+          this.medicineTakenQuantity=medicineTakenQuantity;
+          this.medicineFrequancyQuantity=medicineFrequancyQuantity;
+          this.medicineTotalQuantity=medicineTotalQuantity;
+        }
+      }
       //array to hold the addedMedicineObject
       var addedMedicinesArray = new Array();
+
+      //array to hold the addedMedicineClassObject
+      var addedMedicinesClassArray = new Array();
 
 
       //function return all medicine
@@ -697,8 +722,17 @@ body {
                     //alert(patient);
                     for(pa in patient)
                     patientDateOfBirth=patient[pa].fields.patientDateOfBirth
+                    patientSexId=patient[pa].fields.patientSex
+                    patientBloodGroupId=patient[pa].fields.patientBloodGroup
+
                     $("#patientDateOfBirthInput").val(patientDateOfBirth)
+                     $("#patientBloodGroupDrop").val(patientBloodGroupId).trigger('change');
+                     $("#"+patientSexId+"").attr('checked', 'checked');
+
+
                     console.log(patientDateOfBirth)
+                    console.log(patientSexId)
+                    console.log(patientBloodGroupId)
 
                     
                 }
@@ -821,14 +855,17 @@ body {
         var totalQuantity=Number(duration)*(frequencyMorning*Number(frequancyQuantity)+frequencyNoon*Number(frequancyQuantity)+frequencyNight*Number(frequancyQuantity)) ;
         //console.log(totalQuantity)
 
-        addedMedicineObject["medicineId"]=medicineId;
-        addedMedicineObject["medicineFrequency"]=frequency;
-        addedMedicineObject["medicineDuretion"]=duration;
-        addedMedicineObject["medicineTakenQuantity"]="0";
-        addedMedicineObject["medicineFrequancyQuantity"]=frequancyQuantity;
-        addedMedicineObject["medicineTotalQuantity"]=totalQuantity;
+        //addedMedicineObject["medicineId"]=medicineId;
+        //addedMedicineObject["medicineFrequency"]=frequency;
+        //addedMedicineObject["medicineDuretion"]=duration;
+        //addedMedicineObject["medicineTakenQuantity"]="0";
+        //addedMedicineObject["medicineFrequancyQuantity"]=frequancyQuantity;
+        //addedMedicineObject["medicineTotalQuantity"]=totalQuantity;
+
+        addedMedicineClassObject=new AddedMedicinesClass(medicineId,frequency,duration,"0",frequancyQuantity,totalQuantity);
+        addedMedicinesClassArray.push(addedMedicineClassObject);
         
-        addedMedicinesArray.push(addedMedicineObject)
+        //addedMedicinesArray.push(addedMedicineObject)
         //console.log("id"+addedMedicinesArray[0]["medicineId"])
         $("#prescriptionMedicienListTable").append("<tr><td>"+medicineName+"</td><td>"+frequency+"</td><td>"+duration+"</td><td class='text-center'><button value='"+medicineId+"' class='btn btn-info btn-sm'> Delete</button></td></tr>");
         
@@ -862,10 +899,10 @@ body {
             for(prescription in priscriptions)
             prescriptionId=priscriptions[prescription].pk
             var medicineAddedComplete=true;
-            for(medicine in addedMedicinesArray){
-                console.log(addedMedicinesArray[medicine]["medicineId"])
+            for(medicine in addedMedicinesClassArray){
+                console.log(addedMedicinesClassArray[medicine].medicineId)
 
-                var success=addMedicineOnPrescription(prescriptionId,addedMedicinesArray[medicine]["medicineFrequency"],addedMedicinesArray[medicine]["medicineFrequancyQuantity"],addedMedicinesArray[medicine]["medicineDuretion"],addedMedicinesArray[medicine]["medicineId"],addedMedicinesArray[medicine]["medicineTotalQuantity"],addedMedicinesArray[medicine]["medicineTakenQuantity"]);
+                var success=addMedicineOnPrescription(prescriptionId,addedMedicinesClassArray[medicine].medicineFrequency,addedMedicinesClassArray[medicine].medicineFrequancyQuantity,addedMedicinesClassArray[medicine].medicineDuretion,addedMedicinesClassArray[medicine].medicineId,addedMedicinesClassArray[medicine].medicineTotalQuantity,addedMedicinesClassArray[medicine].medicineTakenQuantity);
                 (success==false)? medicineAddedComplete=false: null;
             }
             (medicineAddedComplete)? location.reload(): null;

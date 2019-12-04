@@ -6,7 +6,9 @@ from Company.models import Company
 from Patient.models import Patient
 from django.contrib import messages
 from Doctor.views import getMakePrescriptionPage
-from Pharmacist.views import orderMedicine, afterOrderMedicine
+from Patient.views import seePrescription
+from Pharmacist.views import orderMedicine
+
 
 
 def login(request):
@@ -57,11 +59,35 @@ def login(request):
             for phar in pharmacist:
                 print(phar.pharmacistId)
                 request.session['id'] = phar.pharmacistId
+                request.session['userType']="pharmacist"
 
             if pharmacist:
                 return redirect(orderMedicine)
             else:
                 messages.info(request, 'no pharmacist')
                 return redirect(login)
+        elif userType == "Patient":
+            phoneNumber = request.POST.get("number")
+            password = request.POST.get("password")
+            patient = Patient.objects.all().filter(patientPhoneNumber=phoneNumber, patientPassword=password)
+
+            for phar in patient:
+                print(phar.patientId)
+                request.session['id'] = phar.patientId
+                request.session['userType']="patient"
+
+            if patient:
+                return redirect(seePrescription)
+            else:
+                messages.info(request, 'no patient')
+                return redirect(login)
 
     return render(request, "Account/login.html", {})
+
+def logout(request):
+    try:
+        del request.session['id']
+        del request.session['userType']
+    except KeyError:
+        pass
+    return redirect(login)

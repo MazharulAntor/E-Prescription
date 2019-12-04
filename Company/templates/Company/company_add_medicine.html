@@ -123,6 +123,9 @@
 .header-right{
 	float: right;
 }
+#logoutButton{
+  height: 50px;
+}
 .headDropdown{
 	color: #EEE;
     background: transparent;
@@ -199,11 +202,7 @@ body {
     <div class="head">
   <div class="header-right">
 
-    <select class="headDropdown">
-      
-    <option><a href="https://www.google.com">Logout</a></option>
-    <option>Change Password</option>
-  </select>
+    <a href="{% url 'logout' %}"  id="logoutButton" class="btn btn-danger btn-lg">Logout</a>
   </div>
   
 </div>
@@ -243,7 +242,7 @@ body {
 
                 
 
-                <a href="company sold medicine.html">
+                <a href="{% url 'soldMedicines' %}">
                   <li data-toggle="collapse" data-target="#service" class="collapsed">
                   <i class="fa fa-user fa-lg"></i> Sold Medicine 
                 </li>

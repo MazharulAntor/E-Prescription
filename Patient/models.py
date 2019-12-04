@@ -2,6 +2,7 @@ from django.db import models
 from Doctor.models import Doctor
 from Company.models import Medicine
 
+
 # Create your models here.
 
 
@@ -54,3 +55,6 @@ class PrescribedMedicine(models.Model):
     
     def __int__(self):
         return self.prescribedMedicineId
+
+
+

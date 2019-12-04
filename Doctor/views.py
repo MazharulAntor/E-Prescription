@@ -12,6 +12,16 @@ from django.db import connection
 
 def getSearchPrescriptionPage(request):
     if request.method=="GET":
+        doctorId = request.session.get('id')
+        userType = request.session.get('userType')
+        print("type")
+        print(userType)
+        if 'userType' not in request.session:
+            return redirect(views.login)
+        if 'id' not in request.session:
+            return redirect(views.login)
+        if userType!="doctor":
+            return redirect(views.login)
         return render(request,"Doctor/doctor_search_prescription.html")
 
 def getMakePrescriptionPage(request):
@@ -30,9 +40,10 @@ def getMakePrescriptionPage(request):
     companys = Company.objects.values('companyId','name').order_by('name')
     medicineTypes = MedicineType.objects.values('medicineTypeId','medicineTypeName').order_by('medicineTypeName')
     patientSexes = PatientSex.objects.all()
+    medicines = Medicine.objects.all()
     for pa in medicineTypes:
             print(pa)
-    return render(request, "Doctor/doctor_make_prescription.html", {'patientBloodGroup': patientBloodGroup,'companys': companys, 'medicineTypes': medicineTypes, 'patientSexes': patientSexes})
+    return render(request, "Doctor/doctor_make_prescription.html", {'patientBloodGroup': patientBloodGroup,'companys': companys, 'medicineTypes': medicineTypes, 'patientSexes': patientSexes,'medicines':medicines})
 
 def getPatientsPhoneNumber(request):
     if request.method=="GET":
