@@ -1,18 +1,18 @@
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render, redirect
 
-<<<<<<< HEAD
+
 from Company.models import Medicine, MedicineForm, MedicineType, Company, AntibioticType
 from Pharmacist.models import Pharmacist
 from Pharmacist.models import SoldMedicineWithoutPrescription,Pharmacist
 from django.core import serializers
-=======
+
 from Company.models import Medicine, MedicineForm, MedicineType, Company
 
 from Pharmacist.models import Order, Pharmacist, MedicineStock
 
 
->>>>>>> e62f9df3ed8bef3fbed98cd72b1f59bd1345f1ff
+
 from Account.views import login
 from django.db.models import Q
 
