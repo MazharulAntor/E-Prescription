@@ -6,7 +6,7 @@ from Company.models import Company
 from Patient.models import Patient
 from django.contrib import messages
 from Doctor.views import getMakePrescriptionPage
-from Pharmacist.views import orderMedicine, afterOrderMedicine
+from Pharmacist.views import orderMedicine
 
 
 def login(request):

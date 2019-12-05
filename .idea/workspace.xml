@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bb3dfee-aa27-4ee2-845f-468216de7589" name="Default Changelist" comment="company medicine list">
-      <change afterPath="$PROJECT_DIR$/Doctor/templates/Doctor/doctor_search_prescription.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Patient/migrations/0002_auto_20191130_1335.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Patient/migrations/0003_auto_20191130_1422.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/templates/Company/company medicine list.html" beforeDir="false" afterPath="$PROJECT_DIR$/Company/templates/Company/company medicine list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Company/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Company/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Doctor/templates/Doctor/doctor_make_prescription.html" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/templates/Doctor/doctor_make_prescription.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Doctor/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Doctor/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E_Prescription/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/E_Prescription/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Patient/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Patient/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Patient/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db2.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db2.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
