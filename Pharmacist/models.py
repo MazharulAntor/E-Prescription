@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils import timezone
-from Company.models import Company, Medicine
 from Patient.models import PrescribedMedicine
+from Company.models import Company, Medicine
+
 
 
 class Pharmacist(models.Model):

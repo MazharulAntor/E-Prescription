@@ -145,6 +145,9 @@
 .header-right{
 	float: right;
 }
+#logoutButton{
+  height: 50px;
+}
 .headDropdown{
 	color: #EEE;
     background: transparent;
@@ -251,11 +254,12 @@ body {
     <div class="head">
   <div class="header-right">
 
-    <select class="headDropdown">
+    {% comment %} <select class="headDropdown">
       <a href="#">NNN</a>
     <option><a href="https://www.google.com">Logout</a></option>
     <option>Change Password</option>
-  </select>
+  </select> {% endcomment %}
+  <a href="{% url 'logout' %}"  id="logoutButton" class="btn btn-danger btn-lg">Logout</a>
   </div>
   
 </div>

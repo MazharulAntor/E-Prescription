@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+{% extends "Patient/base.html" %}
+
+{% block content %}
 	<style type="text/css">
 		.nav-side-menu {
   overflow: auto;
@@ -93,11 +90,11 @@
   vertical-align: middle;
 }
 .nav-side-menu li {
-  padding-left: 0px;
+  padding-left: 10px;
   border-left: 3px solid #2e353d;
   border-bottom: 1px solid #23282e;
 }
-.nav-side-menu li a {
+.nav-side-menu ul a {
   text-decoration: none;
   color: #e1ffff;
 }
@@ -127,6 +124,9 @@
 .header-right{
 	float: right;
 }
+#logoutButton{
+  height: 50px;
+}
 .headDropdown{
 	color: #EEE;
     background: transparent;
@@ -151,7 +151,7 @@
   margin: 0 auto;
   padding-bottom: 33px;
   padding-top: 5px;
-  width: 624px;
+  width: 1024px;
 
 }
 .custab{
@@ -237,11 +237,7 @@ body {
     <div class="head">
   <div class="header-right">
 
-    <select class="headDropdown">
-      <a href="#">NNN</a>
-    <option><a href="https://www.google.com">Logout</a></option>
-    <option>Change Password</option>
-  </select>
+    <a href="{% url 'logout' %}"  id="logoutButton" class="btn btn-danger btn-lg">Logout</a>
   </div>
   
 </div>
@@ -258,14 +254,16 @@ body {
                   </a>
                 </li>
 
-                <li data-toggle="collapse" data-target="#service" class="collapsed active">
-                  <a href="#"><i class="fa fa-user fa-lg"></i> Reports </a>
+                <a href="{% url 'getPrescriptionReportPage' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed active">
+                  <i class="fa fa-user fa-lg"></i> Reports
                 </li> 
-                <li data-toggle="collapse" data-target="#service" class="collapsed ">
-                  <a href="#"><i class="fa fa-user fa-lg"></i> Prescription </a>
-                </li>  
-               
-                 
+                </a>
+                <a href="{% url 'seePrescription' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed ">
+                  <i class="fa fa-user fa-lg"></i> Prescription 
+                </li> 
+                </a>                   
             </ul>
      </div>
 </div>
@@ -278,26 +276,30 @@ body {
     
       <div class="container">
     <div class="row col-md-12 col-md-offset-5 custyle">
-    <table class="table table-striped custab">
+    <table id="soldMedicineTabel" class="table table-striped custab">
     <thead>
     <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
     <h4>Taken medicine from various store</h4>
     
     
         <tr>
+            
             <th>Medicine Name</th>
-            <th>Medicien Company</th>
+            <th>Store Name</th>
+            <th>Date</th>
             <th>Quantity</th>
             <th class="text-center">Action</th>
         </tr>
     </thead>
-            <tr>
-                <td>X</td>
+            {% comment %} <tr>
+                
+                <td>Antibiotic</td>
+                <td>Antibiotic</td>
                 <td>Antibiotic</td>
                 <td>19</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a></td>
-            </tr>
-            <tr>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Report</a></td>
+            </tr> {% endcomment %}
+            {% comment %} <tr>
                 <td>Y</td>
                 <td>Pain Killer</td>
                 <td>19</td>
@@ -308,13 +310,13 @@ body {
                 <td>Paracetamol</td>
                 <td>19</td>
                 <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Details</a></td>
-            </tr>
+            </tr> {% endcomment %}
     </table>
     </div>
 </div>
 </div>
   </div>
-  <div class="rightSection">
+  {% comment %} <div class="rightSection">
       
         <div class="container mb-5 mt-5">
             <div class="pricing card-deck flex-column flex-md-row mb-3">
@@ -341,13 +343,177 @@ body {
         
         
        
-</div>
+</div> {% endcomment %}
 
   </div>
   
 
 </div>
  </div>
+
+ <script>
+
+      class SoldMedicineInfoClass{
+        constructor(soldMedicineId,pharmacist,prescribedMedicine,medicineQuantity,soldDate){
+          this.soldMedicineId=soldMedicineId
+          this.pharmacist=pharmacist
+          this.prescribedMedicine=prescribedMedicine
+          this.medicineQuantity=medicineQuantity
+          this.soldDate=soldDate
+
+        }
+      }
+      class PharmacistClass{
+        constructor(pharmacistId,storeName){
+          this.pharmacistId=pharmacistId
+          this.storeName=storeName
+        }
+      }
+      class PrescribedMedicineClass{
+        constructor(prescribedMedicineId,prescribedMedicineMedicine){
+          this.prescribedMedicineId=prescribedMedicineId
+          this.prescribedMedicineMedicine=prescribedMedicineMedicine
+        }
+      }
+      class MedicineClass{
+        constructor(medicineId,medicineName){
+          this.medicineId=medicineId
+          this.medicineName=medicineName
+        }
+      }
+      var SoldMedicineInfoClassArray = new Array();
+
+      function getSoldMedicine(){
+        console.log("ggg")
+        var soldMedicine=null;
+        $.ajax({
+          url: '{% url "getSoldMedicineOnPatietnId" %}',
+          async: false,
+          data:{
+
+          },
+          success: function(data){
+              soldMedicine= JSON.parse(data.soldMedicne)
+          }
+        });
+        return soldMedicine;
+      }
+
+      //get pharmacist info
+      function getPharmacist(pharmacistId){
+        console.log("pharmacist")
+        var pharmacist=null;
+        $.ajax({
+          url: '{% url "getPharmacistOnId" %}',
+          async:false,
+          data: {
+            pharmacistId: pharmacistId
+          },
+          success: function(data){
+             pharmacist=JSON.parse(data.pharmacist)
+          }
+        });
+        return pharmacist;
+      }
+
+      //get soldMedicine's prescribedMedicine
+      function getPrescribedMedicineMedicineOnId(prescribedMedicineId){
+          var prescribedMedicineMedicine=null;
+          $.ajax({
+            url: '{% url "getPrescribedMedicineMedicineOnId" %}',
+            async:false,
+            data:{
+              prescribedMedicineId:prescribedMedicineId
+            },
+            success: function(data){
+              prescribedMedicineMedicine=JSON.parse(data.prescribedMedicineMedicine)
+            }
+          });
+          return prescribedMedicineMedicine;
+      }
+
+      function reportSoldMedicine(soldMedicineId,reportComent,pharmacistId){
+          $.ajax({
+            url: "{% url 'reportSuspiciousSoldMedicine' %}",
+            data:{
+              soldMedicineId:soldMedicineId,
+              reportComent:reportComent,
+              pharmacistId:pharmacistId
+            },
+            success: function(data){
+
+            }
+          });
+      }
+
+      //click function for report button
+      function onClickForReportButton(id){
+          for(index in SoldMedicineInfoClassArray){
+            if(id==SoldMedicineInfoClassArray[index].soldMedicineId){
+              reportSoldMedicine(id,"I am not aware about this sell",SoldMedicineInfoClassArray[index].pharmacist.pharmacistId);
+            }
+          }
+      }
+      $("document").ready(function(){
+          var soldMedicine=getSoldMedicine();
+          for(index in soldMedicine){
+            var soldMedicineId=soldMedicine[index].pk
+            var pharmacistId=soldMedicine[index].fields.pharmacist
+            console.log("pharmacist id "+pharmacistId)
+            var pharmacist=null;
+            for(index in SoldMedicineInfoClassArray){
+              if(pharmacistId==SoldMedicineInfoClassArray[index].pharmacist.pharmacistId){
+                  pharmacist=SoldMedicineInfoClassArray[index].pharmacist;
+                  break;
+              }
+            }
+            if(pharmacist==null){
+                var pharmacist=getPharmacist(pharmacistId)
+                for(pIndex in pharmacist){
+                  var pharmacistId=pharmacist[pIndex].pk
+                  var storeName= pharmacist[pIndex].fields.storeName
+                  pharmacist=new PharmacistClass(pharmacistId,storeName)
+
+                }
+            }
+            
+            
+            var medicineQuantity = soldMedicine[index].fields.medicineQuantity
+            var soldDate = soldMedicine[index].fields.soldDate
+            var prescribedMedicineId=soldMedicine[index].fields.prescribedMedicine
+            var prescribedMedicine;
+            var prescribedMedicineMedicine=null;
+            for(index in SoldMedicineInfoClassArray){
+              if(prescribedMedicineId==SoldMedicineInfoClassArray[index].prescribedMedicine.prescribedMedicineId){
+                  prescribedMedicineMedicine=SoldMedicineInfoClassArray[index].prescribedMedicine.prescribedMedicineMedicine;
+                  break;
+              }
+            }
+            if(prescribedMedicineMedicine==null){
+              console.log("get medici")
+              var medicine=getPrescribedMedicineMedicineOnId(prescribedMedicineId);
+              for(index in medicine){
+                var medicineId= medicine[index].pk
+                var medicineName=medicine[index].fields.medicineName
+                console.log("get medici11 "+medicineName)
+                prescribedMedicineMedicine = new MedicineClass(medicineId,medicineName)
+                console.log(" added medii "+prescribedMedicineMedicine.medicineName)
+
+              }
+            }
+            prescribedMedicine= new PrescribedMedicineClass(prescribedMedicineId,prescribedMedicineMedicine)
+            
+            soldMedicineInfoClassObject = new SoldMedicineInfoClass(soldMedicineId,pharmacist,prescribedMedicine,medicineQuantity,soldDate)
+            SoldMedicineInfoClassArray.push(soldMedicineInfoClassObject)
+            console.log("Quantity"+SoldMedicineInfoClassArray[0].medicineQuantity)
+
+          }
+          for(index in SoldMedicineInfoClassArray){
+            $("#soldMedicineTabel").append("<tr><td>"+SoldMedicineInfoClassArray[index].prescribedMedicine.prescribedMedicineMedicine.medicineName+"</td><td>"+SoldMedicineInfoClassArray[index].pharmacist.storeName+"</td><td>"+SoldMedicineInfoClassArray[index].soldDate+"</td><td>"+SoldMedicineInfoClassArray[index].medicineQuantity+"</td><td class='text-center'><a onclick='onClickForReportButton(this.id)' id='"+SoldMedicineInfoClassArray[index].soldMedicineId+"'class='btn btn-info btn-xs' href='#'><span class='glyphicon glyphicon-edit'></span> Report</a></td></tr>")
+          }
+
+      });
+
+ </script>
     
-</body>
-</html>
+ {% endblock content %}
