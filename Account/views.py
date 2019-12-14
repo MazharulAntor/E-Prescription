@@ -1,13 +1,14 @@
 from django.shortcuts import render, HttpResponse, redirect
 
-from Patient.views import seePrescription
 from Pharmacist.models import Pharmacist
 from Doctor.models import Doctor
 from Company.models import Company
 from Patient.models import Patient
 from django.contrib import messages
-from Doctor.views import makePrescription
-from Pharmacist.views import sellMedicine
+from Doctor.views import getMakePrescriptionPage
+from Patient.views import seePrescription
+from Pharmacist.views import orderMedicine
+
 
 
 def login(request):
@@ -23,7 +24,7 @@ def login(request):
             for com in company:
                 print(com.companyId)
                 request.session['id'] = com.companyId
-                request.session['userType'] ="company"
+                request.session['userType'] = "company"
 
             if company:
                 return redirect('company/addMedicine/')
@@ -45,7 +46,7 @@ def login(request):
 
             if doctor:
                 #return render(request, "Doctor/doctor_make_prescription.html", {})
-                return redirect(makePrescription)
+                return redirect(getMakePrescriptionPage)
             else:
                 #return HttpResponse("No Doctor")
                 messages.info(request, 'no doctor found')
@@ -58,28 +59,35 @@ def login(request):
             for phar in pharmacist:
                 print(phar.pharmacistId)
                 request.session['id'] = phar.pharmacistId
+                request.session['userType']="pharmacist"
 
             if pharmacist:
-                return redirect(sellMedicine)
+                return redirect(orderMedicine)
             else:
                 messages.info(request, 'no pharmacist')
                 return redirect(login)
-
         elif userType == "Patient":
-            patientPhoneNumber = request.POST.get("number")
-            patientPassword = request.POST.get("password")
-            patient = Patient.objects.all().filter(patientPhoneNumber=patientPhoneNumber, patientPassword=patientPassword)
+            phoneNumber = request.POST.get("number")
+            password = request.POST.get("password")
+            patient = Patient.objects.all().filter(patientPhoneNumber=phoneNumber, patientPassword=password)
 
             for pat in patient:
                 print(pat.patientId)
                 request.session['id'] = pat.patientId
-                request.session['userType'] ="patient"
-                print(request.session.get('id'))
+                request.session['userType']="patient"
 
             if patient:
                 return redirect(seePrescription)
             else:
-                messages.info(request, 'No user found')
+                messages.info(request, 'no patient')
                 return redirect(login)
 
     return render(request, "Account/login.html", {})
+
+def logout(request):
+    try:
+        del request.session['id']
+        del request.session['userType']
+    except KeyError:
+        pass
+    return redirect(login)

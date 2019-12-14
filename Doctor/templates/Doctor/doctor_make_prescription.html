@@ -133,6 +133,9 @@
 .header-right{
 	float: right;
 }
+#logoutButton{
+  height: 50px;
+}
 .headDropdown{
 	color: #EEE;
     background: transparent;
@@ -161,7 +164,7 @@
 
 }
 .formContainer{
-  background: red;
+  background: ;
   
   //box-shadow: 0 9px 9px silver;
   
@@ -253,11 +256,13 @@ body {
     <div class="head">
   <div class="header-right">
 
-    <select class="headDropdown">
+    {% comment %} <select class="headDropdown">
       <a href="#">NNN</a>
     <option><a href="https://www.google.com">Logout</a></option>
     <option>Change Password</option>
-  </select>
+  </select> {% endcomment %}
+  <a href="{% url 'logout' %}" id="logoutButton" class="btn btn-danger btn-lg">Logout</a>
+
   </div>
   
 </div>
@@ -279,6 +284,11 @@ body {
                   <i class="fa fa-user fa-lg"></i> Make Prescription 
                 </li> 
                 </a>
+                <a href="{% url 'getSearchPrescriptionPage' %}">
+                  <li data-toggle="collapse" data-target="#service" class="collapsed">
+                  <i class="fa fa-user fa-lg"></i> Search Prescription 
+                </li> 
+                </a>
                   
                
                  
@@ -288,12 +298,12 @@ body {
 
 <div class="mainContainer">
   
-  <div class="leftSection" style="background: blue;">
-      <div class="leftFormContainer" style="background:red;">
-                <div class="leftContainer" style="background: blue;">
+  <div class="leftSection" style="background: ;">
+      <div class="leftFormContainer" style="background:;">
+                <div class="leftContainer" style="background: ;">
 
 
-                    <form class="form-horizontal" id="form" role="form" style="background:green;">
+                    <form class="form-horizontal" id="form" role="form" style="background:;">
                         <h4 style="margin-left: 0px;">Make Prescription</h4>
                         <br>
 
@@ -321,18 +331,18 @@ body {
                             <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col-sm-5">
-                                        <label for="name" class=" control-label">Age*</label>
-                                        <input type="number" id="patientAge" placeholder="Age" class="form-control" autofocus autocomplete="off">
+                                        <label for="patientDateOfBirth" class=" control-label">Date of Birth*</label>
+                                        <input type="date" id="patientDateOfBirthInput" placeholder="DBO" class="form-control" autofocus autocomplete="off">
                                     </div>
                                     <div class="col-sm-5">
 
                                         <label for="name" class=" control-label">Blood Grpup*</label>
-                                        <select class="form-control" id="patientBloodGroup">
-                                            <option>
+                                        <select class="form-control" id="patientBloodGroupDrop">
+                                            <option value="null">
                                               --select one--
                                             </option>
                                             {% for bloodGroup in patientBloodGroup%}
-                                            <option>
+                                            <option value="{{bloodGroup.patientBloodGroupId}}">
                                               {{bloodGroup.patientBloodGroupName}}
                                             </option>
                                             {% endfor %}
@@ -347,14 +357,14 @@ body {
                             <label for="sex" class="col-sm-5 control-label">Sex* </label>
                             <div class="col-sm-8 form-control">
                               {%for patientSex in patientSexes%}
-                                {{patientSex.patientSexName}} <input type="radio" id="patientSex" name="sex" value="{{patientSex.id}}">
+                                {{patientSex.patientSexName}} <input type="radio" id="{{patientSex.patientSexId}}" name="sex" value="{{patientSex.patientSexId}}">
                               {%endfor%}
                                 
                             </div>
                         </div>
                         <hr>
 
-                        <div class="form-group" style="background: red;">
+                        <div class="form-group" style="background: ;">
                           
 
                             <div class="col-sm-12" >
@@ -363,7 +373,7 @@ body {
                                     <div class="col-sm-4">
                                         <label for="name" class=" control-label">Madicien Type*</label>
                                         <select class="form-control" id="medicineTypeDrop">
-                                            <option value="no">
+                                            <option value="null">
                                               --select one--
                                             </option>
                                             
@@ -377,7 +387,7 @@ body {
                                     <div class="col-sm-4">
                                         <label for="name" class=" control-label">Company*</label>
                                         <select class="form-control" id="medicineCompanyDrop">
-                                            <option>
+                                            <option value="null">
                                               --select one--
                                             </option>
                                             {% for company in companys %}
@@ -390,10 +400,15 @@ body {
                                     <div class="col-sm-4">
 
                                         <label for="name" class=" control-label">Medicine*</label>
-                                        <select class="form-control" id="medicineDrop">
-                                            <option>
+                                        <select class="form-control" id="medicineDrop" name="null">
+                                            <option value="null">
                                               --select one--
                                             </option>
+                                            
+                                            {% for medicine in medicines %}
+                                                <option value="{{medicine.medicineId}}">{{medicine.medicineName}}</option>
+
+                                            {% endfor%}
                                             
                     </select>
                                     </div>
@@ -405,23 +420,25 @@ body {
 
                             <div class="col-sm-12">
                                 <div class="row">
-                                    <div class="col-sm-4" style="background: yellow;">
+                                    <div class="col-sm-4" style="background: ;">
                                         <label for="name" class=" control-label">Frequancy*</label>
-                                        <div class="col-sm-10 form-control" style="background: red;">
+                                        <div class="col-sm-10 form-control" style="background: ;">
                                            <input type="checkbox" id="frequencyMorningCheck" name="frequencyCheck"> Morning<br>
                                             <input type="checkbox" id="frequencyNoonCheck" name="frequencyCheck"> Noon<br>
                                              <input type="checkbox" id="frequencyNightCheck" name="frequencyCheck"> Night
                                        </div>
                                     </div>
-                                    <div class="col-sm-4" style="background: red;">
+                                    <div class="col-sm-4" style="background: ;">
 
-                                        <label for="name" class=" control-label">Quantity*</label>
-                                        <input type="number" id="medicineQuantity" placeholder="Quantity" class="form-control" autofocus>
+                                        <label for="medicineDuration" class=" control-label">Duration*</label>
+                                        <input type="number" id="medicineDurationInput" placeholder="Days" class="form-control" autofocus>
+                                        <label for="medicineQuantity" class=" control-label">Quantity*</label>
+                                        <input type="number" id="medicineQuantityInput" placeholder="pic/ml" class="form-control" autofocus>
                                     </div>
-                                    <div class="col-sm-4" style="background: yellow;">
+                                    <div class="col-sm-4" style="background: ;">
 
                                         
-                                        <input type="button" id="addMedicine" value="Add" class="btn btn-info btn-block" autofocus>
+                                        <input type="button" id="addMedicine" value="Add" class="btn btn-info btn-block">
                                     </div>
 
                                     
@@ -430,38 +447,7 @@ body {
                             </div>
                         </div>
                         
-                        <!-- <div class="form-group">
-                            <label for="password" class="col-sm-5 control-label">Confirm Password*</label>
-                            <div class="col-sm-8">
-                                <input type="password" id="confirmPassword" placeholder="Password" class="form-control">
-                            </div>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label for="licence" class="col-sm-5 control-label">Drug Licence* </label>
-                            <div class="col-sm-8">
-                                <input type="text" id="licence" placeholder="Licence of the Pharmacy" class="form-control">
-                            </div>
-                        </div> -->
-
-
-
-
-
-                        <!-- /.form-group -->
-                        <!-- <div class="form-group">
-                            <div class="col-sm-9 col-sm-offset-3">
-                                <span class="help-block">*Required fields</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-9 col-sm-offset-3" id="message">
-
-                            </div>
-                        </div>
-                        <input type="button" class="btn btn-primary btn-block" id="registerButton" value="Register"></button> -->
+                        
                     </form>
                     <!-- /form -->
                 </div>
@@ -477,29 +463,21 @@ body {
     
       <div class="container">
     <div class="row col-md-12 col-md-offset-5 custyle">
-    <table class="table table-striped custab prescriptionMedicienListTable" >
+    <table class="table table-striped custab" id="prescriptionMedicienListTable" >
     <thead>
-    <!-- <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new categories</a> -->
+   
     <h4>Medicine List</h4>
     
     
         <tr>
             <th>Medicine</th>
             <th>Frequancy</th>
-            <th>Quantity</th>
+            <th>Duration</th>
             <th class="text-center">Action</th>
         </tr>
     </thead>
-            <tr>
-                <td>X</td>
-                <td>Antibiotic</td>
-                <td>Tablet</td>
-                <td class="text-center">
-                  
-                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
-                </td>
-            </tr>
-            <tr>
+            
+            {% comment %} <tr>
                 <td>Y</td>
                 <td>Pain Killer</td>
                 <td>Liquid</td>
@@ -507,22 +485,14 @@ body {
                   
                   <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
                 </td>
-            </tr>
-            <tr>
-                <td>Z</td>
-                <td>paracetamol</td>
-                <td>Capsule</td>
-                <td class="text-center">
-                  
-                  <a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-edit"></span> Delete</a>
-                </td>
-            </tr>
+            </tr>{% endcomment %}
+          
     </table>
     </div>
 </div>
 </div>
       
-        <input type="button" class="btn btn-primary btn-block" id="registerButton" value="Make Prescription">
+        <input type="button" class="btn btn-primary btn-block" id="makePrescriptionButton" value="Make Prescription">
         
        
 </div><!-- rightSection -->
@@ -536,17 +506,133 @@ body {
  <script>
 
       //global variable for patient info
-      {% comment %} var patientPhoneNumber;
+      var patientPhoneNumber;
       var patientName;
       var patientSexId;
       var patientBloodGroupId;
-      var patientAge;
-      var patientIsOld;
-      var patientId; {% endcomment %}
+      var patientDateOfBirth;
+      //var patientIsOld;
+      //var patientId;
 
+      //variable for medicine search
+      var medicineTypeDropCurrentVal="null";
+      var medicineCompanyDropCurrentVal="null";
+
+      //object to store addedMedicine information
+      var addedMedicineObject={
+        medicineId:null,
+        medicineFrequency:null,
+        medicineDuretion:null,
+        medicineTakenQuantity:"0",
+        medicineFrequancyQuantity:null,
+        medicineTotalQuantity:null
+      }
+
+      //class to store addedmedicien
+      class AddedMedicinesClass{
+        constructor(medicineId,medicineFrequency,medicineDuretion,medicineTakenQuantity,medicineFrequancyQuantity,medicineTotalQuantity){
+          this.medicineId=medicineId;
+          this.medicineFrequency=medicineFrequency;
+          this.medicineDuretion=medicineDuretion;
+          this.medicineTakenQuantity=medicineTakenQuantity;
+          this.medicineFrequancyQuantity=medicineFrequancyQuantity;
+          this.medicineTotalQuantity=medicineTotalQuantity;
+        }
+      }
+      //array to hold the addedMedicineObject
+      var addedMedicinesArray = new Array();
+
+      //array to hold the addedMedicineClassObject
+      var addedMedicinesClassArray = new Array();
+
+
+      //function return all medicine
+      function getAllMedicine(){
+        //console.log("getAllMedicine");
+        var medicines;
+        $.ajax({
+            url: "getMedicine",
+            async: false,
+            type: "GET",
+            success: function(data){
+              
+              medicines=JSON.parse(data.medicines);
+              
+              
+              
+            }
+          });
+          
+          return medicines;
+      }
+      
+      //add json data in medicineDrop
+      function addMedicineInMedicineDrop(medicines){
+        for( medicine in medicines) console.log(medicines[medicine].pk)
+        //console.log("addMedicineInMedicineDrop");
+        //console.log(medicines);
+        $("#medicineDrop").empty()
+        for( medicine in medicines){
+           $("#medicineDrop").append("<option name='"+medicines[medicine].fields.medicineName+"' value='"+medicines[medicine].pk+"'>"+medicines[medicine].fields.medicineName+"</option>")
+        }
+
+      }
+
+      //get MedicineOn company and type
+      function getMedicineOnCompanyAndType(){
+        var medicines;
+        $.ajax({
+            url: "getMedicineOnCompanyAndType",
+            async: false,
+            type: "GET",
+            data: {
+              medicineCompanyId: medicineCompanyDropCurrentVal,
+              medicineTypeId: medicineTypeDropCurrentVal
+              
+            },
+            success: function(data){
+             medicines=JSON.parse(data.medicines);
+             
+              
+            }
+          });
+          
+          
+          return medicines;
+      }
+
+      //add medicine in prescription
+      function addMedicineOnPrescription(prescriptionId,prescribedMedicineFrequancy,prescribedMedicineFrequancyQuantity,prescribedMedicineDuration,medicineId,prescribedMedicineQuantity,prescribedMedicineTakenQuantity){
+        var success=false;
+        $.ajax({
+          url:"addMedicineOnPrescription",
+          type: "POST",
+          async: false,
+          data:{
+            prescriptionId:prescriptionId,
+            prescribedMedicineFrequancy:prescribedMedicineFrequancy,
+            prescribedMedicineFrequancyQuantity:prescribedMedicineFrequancyQuantity,
+            prescribedMedicineDuration:prescribedMedicineDuration,
+            medicineId:medicineId,
+            prescribedMedicineQuantity:prescribedMedicineQuantity,
+            prescribedMedicineTakenQuantity:prescribedMedicineTakenQuantity,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+
+          },
+          success: function(data){
+            (data=="added")? success=true: success=false;
+          }
+
+        });
+        return success;
+      }
 
       
       $("document").ready(function(){
+        // add medicine in medicineDrop
+        addMedicineInMedicineDrop(getAllMedicine());
+
+        //get data for patient phone number field
           $.ajax({
             url: "getPatientPhoneNumber",
             type: "GET",
@@ -554,15 +640,13 @@ body {
               var patientPhoneNumber=JSON.parse(data.patientPhoneNumber);
               for(key in patientPhoneNumber)   
               {
-                  $("#patientPhoneNumberList").append("<option value='"+patientPhoneNumber[key].fields.patientPhoneNumber+"'>")
-                  
+                  $("#patientPhoneNumberList").append("<option  value='"+patientPhoneNumber[key].fields.patientPhoneNumber+"'>")              
               }
               
             }
-          })
-          
+          });    
       });
-      $("#patientPhoneNumber").blur(function(){
+      {% comment %} $("#patientPhoneNumber").blur(function(){
         //$("#registerButton").val("cle")
           var phoneNumber=$("#patientPhoneNumber").val()
           if(phoneNumber.localeCompare("")!=0){
@@ -584,17 +668,41 @@ body {
             }
           });
           }
+          else{
+            $("#patientNameList").empty()
+          }
           
-      });
+      });{% endcomment %}
       
       $('input:radio').on('change', function(){
         
         patientSexId=$(this).val()
+        console.log(patientSexId)
         //$("#registerButton").val(patientSexId)
-      }); 
+      });
+
+      //on change for bloodGroup drop 
+        
+      $('#patientBloodGroupDrop').on('change', function(){
+        
+        patientBloodGropu=$(this).val()
+        patientBloodGroupId=patientBloodGropu;
+        console.log(patientBloodGroupId)
+      });
+
+      $('#patientDateOfBirthInput').on('change', function(){
+        
+        dateOfBirth=$(this).val()
+        
+        patientDateOfBirth=dateOfBirth;
+        
+        console.log(patientDateOfBirth)
+      });
+
       $('#patientName').on('input', function() {
             var phone = $("#patientPhoneNumber").val();
             var name = $("#patientName").val();
+            patientName=name;
             //alert(val);
 
           var opts = $("#patientNameList").children();
@@ -612,17 +720,83 @@ body {
                 success: function(data){
                     var patient=JSON.parse(data.patient);
                     //alert(patient);
+                    for(pa in patient)
+                    patientDateOfBirth=patient[pa].fields.patientDateOfBirth
+                    patientSexId=patient[pa].fields.patientSex
+                    patientBloodGroupId=patient[pa].fields.patientBloodGroup
+
+                    $("#patientDateOfBirthInput").val(patientDateOfBirth)
+                     $("#patientBloodGroupDrop").val(patientBloodGroupId).trigger('change');
+                     $("#"+patientSexId+"").attr('checked', 'checked');
+
+
+                    console.log(patientDateOfBirth)
+                    console.log(patientSexId)
+                    console.log(patientBloodGroupId)
+
                     
                 }
               });
               
               break;
             }
+            else{
+              $("#patientDateOfBirthInput").val("")
+            }
+            
+          }
+        
+      });
+
+      //patient phone on input methode
+       $('#patientPhoneNumber').on('input', function() {
+            var phoneNumber = $("#patientPhoneNumber").val();
+            patientPhoneNumber=phoneNumber;
+            
+            //alert(val);
+
+          var opts = $("#patientPhoneNumberList").children();
+          for (var i = 0; i < opts.length; i++) {
+            //alert(opts[i].value);
+            if (opts[i].value === phoneNumber) {
+              //alert(opts[i].value);
+                  $.ajax({
+                
+                      url: "getPatientsNameOnPhoneNumber",
+                      type: "GET",
+                      data: {
+                        patientPhoneNumber: phoneNumber
+                      },
+                      success: function(data){
+                        $("#patientNameList").empty()
+                          var patientName=JSON.parse(data.patientName);
+                          for(key in patientName)   
+                          {
+                              $("#patientNameList").append("<option value='"+patientName[key].fields.patientName+"'>")
+                            
+                          }
+                      }
+                  });
+              
+              break;
+            }
+            else{
+              $("#patientDateOfBirthInput").val("")
+              $("#patientName").val("")
+              $("#patientNameList").empty()
+            }
+            
           }
         
       });
       $("#medicineTypeDrop").on('change',function(){
+
         var typeId= $(this).val()
+        medicineTypeDropCurrentVal=typeId;
+        if(medicineCompanyDropCurrentVal!="null"){
+          addMedicineInMedicineDrop(getMedicineOnCompanyAndType());
+        }
+        else{
           $.ajax({
               url: "getMedicineOnType",
               type: "GET",
@@ -631,15 +805,20 @@ body {
               },
               success: function(data){
                   var medicineList= JSON.parse(data.medicine)
-                  for( medicine in medicineList){
-                    $("#medicineDrop").empty()
-                    $("#medicineDrop").append("<option value='"+medicineList[medicine].pk+"'>"+medicineList[medicine].fields.medicineName+"</option>")
-                  }
+                  addMedicineInMedicineDrop(medicineList);
               }
           });
+        }
+          
       });
       $("#medicineCompanyDrop").on('change',function(){
         var companyId= $(this).val()
+        medicineCompanyDropCurrentVal=companyId;
+        if(medicineTypeDropCurrentVal!="null"){
+          
+            addMedicineInMedicineDrop(getMedicineOnCompanyAndType());
+        }
+        else{
           $.ajax({
               url: "getMedicineOnCompany",
               type: "GET",
@@ -648,14 +827,90 @@ body {
               },
               success: function(data){
                   var medicineList= JSON.parse(data.medicine)
-                  $("#medicineDrop").empty()
-                  for( medicine in medicineList){
-                    //$("#registerButton").val((medicineList[medicine].pk))
-                    
-                    $("#medicineDrop").append("<option value='"+medicineList[medicine].pk+"'>"+medicineList[medicine].fields.medicineName+"</option>")
-                  }
+                  addMedicineInMedicineDrop(medicineList);
               }
           });
+        }
+          
+      });
+
+      $("#addMedicine").click(function(){
+        // get selected medicine id from drop options value
+        var medicineId=$("#medicineDrop").val()
+       
+        
+        //get selected medicine name from drop options
+        var e = document.getElementById("medicineDrop");
+        var medicineName = e.options[e.selectedIndex].text;
+
+        console.log("name: "+medicineName)
+        var frequency;
+        var frequencyMorning=$("#frequencyMorningCheck").prop('checked') ? 1:0;
+        var frequencyNoon=$("#frequencyNoonCheck").prop('checked') ? 1:0;
+        var frequencyNight=$("#frequencyNightCheck").prop('checked') ? 1:0;
+        frequency=frequencyMorning+"-"+frequencyNoon+"-"+frequencyNight;
+        console.log(frequency)
+        var duration=$("#medicineDurationInput").val()
+        var frequancyQuantity=$("#medicineQuantityInput").val()
+        var totalQuantity=Number(duration)*(frequencyMorning*Number(frequancyQuantity)+frequencyNoon*Number(frequancyQuantity)+frequencyNight*Number(frequancyQuantity)) ;
+        //console.log(totalQuantity)
+
+        //addedMedicineObject["medicineId"]=medicineId;
+        //addedMedicineObject["medicineFrequency"]=frequency;
+        //addedMedicineObject["medicineDuretion"]=duration;
+        //addedMedicineObject["medicineTakenQuantity"]="0";
+        //addedMedicineObject["medicineFrequancyQuantity"]=frequancyQuantity;
+        //addedMedicineObject["medicineTotalQuantity"]=totalQuantity;
+
+        addedMedicineClassObject=new AddedMedicinesClass(medicineId,frequency,duration,"0",frequancyQuantity,totalQuantity);
+        addedMedicinesClassArray.push(addedMedicineClassObject);
+        
+        //addedMedicinesArray.push(addedMedicineObject)
+        //console.log("id"+addedMedicinesArray[0]["medicineId"])
+        $("#prescriptionMedicienListTable").append("<tr><td>"+medicineName+"</td><td>"+frequency+"</td><td>"+duration+"</td><td class='text-center'><button value='"+medicineId+"' class='btn btn-info btn-sm'> Delete</button></td></tr>");
+        
+      
+      });
+
+      //make prescription button submit
+      $("#makePrescriptionButton").click(function(){
+        console.log("mekePres")
+        console.log(patientPhoneNumber)
+        console.log(patientName)
+        console.log(patientBloodGroupId)
+        console.log(patientDateOfBirth)
+        console.log(patientSexId)
+
+        $.ajax({
+          url:"makePrescription",
+          type: "POST",
+          data: {
+            patientPhoneNumber: patientPhoneNumber,
+            patientName: patientName,
+            patientBloodGroupId: patientBloodGroupId,
+            patientDateOfBirth: patientDateOfBirth,
+            patientSexId: patientSexId,
+            medicines: addedMedicinesArray,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          success: function(data){
+            var priscriptions=JSON.parse(data.priscriptions)
+            var prescriptionId=null;
+            for(prescription in priscriptions)
+            prescriptionId=priscriptions[prescription].pk
+            var medicineAddedComplete=true;
+            for(medicine in addedMedicinesClassArray){
+                console.log(addedMedicinesClassArray[medicine].medicineId)
+
+                var success=addMedicineOnPrescription(prescriptionId,addedMedicinesClassArray[medicine].medicineFrequency,addedMedicinesClassArray[medicine].medicineFrequancyQuantity,addedMedicinesClassArray[medicine].medicineDuretion,addedMedicinesClassArray[medicine].medicineId,addedMedicinesClassArray[medicine].medicineTotalQuantity,addedMedicinesClassArray[medicine].medicineTakenQuantity);
+                (success==false)? medicineAddedComplete=false: null;
+            }
+            (medicineAddedComplete)? location.reload(): null;
+
+          }
+          
+        });
+
       });
       
  </script>

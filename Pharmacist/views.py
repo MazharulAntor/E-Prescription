@@ -30,11 +30,13 @@ def addOrder(request,medicineCode,quantity,order=None):
     pid = request.session.get('id')
     pharmacist = Pharmacist.objects.get(pharmacistId=pid)
     mediciness = Medicine.objects.get(medicineId=medicineCode)
+    comId=mediciness.company.companyId
+    company=Company.objects.get(companyId=comId)
     medicines = Medicine.objects.all().filter(medicineId=medicineCode)
 
     if order:
         print ('Before order')
-        orders = Order(medicine=mediciness, pharmacist=pharmacist, quantity=quantity, confirmationState='Pending')
+        orders = Order(medicine=mediciness, company=company, pharmacist=pharmacist, quantity=quantity, confirmationState='Pending')
         orders.save()
         print('After order')
         return order
@@ -60,7 +62,7 @@ def sellMedicine(request):
         presid = request.POST.get('presid')
         request.session['presid'] = presid
         prescription = Prescription.objects.get(prescriptionId=presid)
-        prescribedMedicines = PrescribedMedicine.objects.all().filter(prescribedMedicinePrescriptioin=prescription)
+        prescribedMedicines = PrescribedMedicine.objects.all().filter(prescribedMedicinePrescription=prescription)
         print (prescribedMedicines)
 
         return render(request, "Pharmacist/pharmacist_sell_medicine.html",{'prescriptions': prescriptions,'prescribedMedicines': prescribedMedicines})
@@ -71,7 +73,7 @@ def sellMedicine(request):
         prescriptions = Prescription.objects.all().filter(prescriptionPatient=patient)
         presid = request.session.get('presid')
         prescription = Prescription.objects.get(prescriptionId=presid)
-        prescribedMedicines = PrescribedMedicine.objects.all().filter(prescribedMedicinePrescriptioin=prescription)
+        prescribedMedicines = PrescribedMedicine.objects.all().filter(prescribedMedicinePrescription=prescription)
         presMedid = request.POST.get('presMedid')
         request.session['presMedid'] = presMedid
         prescribedMedicine = PrescribedMedicine.objects.all().filter(prescribedMedicineId=presMedid)
@@ -84,13 +86,13 @@ def sellMedicine(request):
         prescriptions = Prescription.objects.all().filter(prescriptionPatient=patient)
         presid = request.session.get('presid')
         prescription = Prescription.objects.get(prescriptionId=presid)
-        prescribedMedicines = PrescribedMedicine.objects.all().filter(prescribedMedicinePrescriptioin=prescription)
+        prescribedMedicines = PrescribedMedicine.objects.all().filter(prescribedMedicinePrescription=prescription)
         presMedid = request.session.get('presMedid')
         print (presMedid)
         prescribedMedicine = PrescribedMedicine.objects.all().filter(prescribedMedicineId=presMedid)
         preMedObj=PrescribedMedicine.objects.get(prescribedMedicineId=presMedid)
-        medQuantity=preMedObj.prescribedMedicineQuantity
-        medTaken=preMedObj.prescribedMedicineTakenQuantity
+        medQuantity=int(preMedObj.prescribedMedicineQuantity)
+        medTaken=int(preMedObj.prescribedMedicineTakenQuantity)
 
         pid = request.session.get('id')
         pharmacistObj = Pharmacist.objects.get(pharmacistId=pid)

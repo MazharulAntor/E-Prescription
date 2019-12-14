@@ -18,12 +18,20 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+class AntibioticType(models.Model):
+    antibioticTypeId = models.AutoField(primary_key=True)
+    antibioticTypeName = models.CharField(max_length=33)
+
+    def __str__(self):
+        return self.antibioticTypeName
+
 class MedicineType(models.Model):
     medicineTypeId = models.AutoField(primary_key=True)
     medicineTypeName = models.CharField(max_length=33, blank=False, null=False)
+    antibioticType = models.ForeignKey(AntibioticType,on_delete=models.CASCADE,null=True)
 
-    def __int__(self):
-        return self.medicineTypeId
+    def __str__(self):
+        return self.medicineTypeName
 
 
 class MedicineForm(models.Model):
@@ -44,6 +52,10 @@ class MedicineForm(models.Model):
 #     def __str__(self):
 #         return "{0},{1}".format(self.companyNumber,self.medicineName)
 
+
+
+
+
 class Medicine(models.Model):
     medicineId = models.AutoField(primary_key=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -54,3 +66,6 @@ class Medicine(models.Model):
 
     def __str__(self):
         return self.medicineName
+
+
+

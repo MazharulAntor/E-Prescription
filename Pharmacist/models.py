@@ -18,10 +18,11 @@ class Pharmacist(models.Model):
 class Order(models.Model):
     orderId = models.AutoField(primary_key=True)
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     pharmacist = models.ForeignKey(Pharmacist, on_delete=models.CASCADE)
     quantity = models.IntegerField(max_length=20, blank=False, null=False)
     confirmationState = models.CharField(max_length=20, blank=False, null=False)
-    deliveryDate= models.DateField(blank=True, null=True)
+    deliveryDate= models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return self.confirmationState

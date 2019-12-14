@@ -311,7 +311,7 @@ body {
     </thead>
             {% for prescription in prescriptions %}
             <tr>
-                <td>{{prescription.prescriptionPatient}}</td>
+                <td>{{prescription.prescriptionPatient.patientName}}</td>
                 <td>{{prescription.prescriptionPatient.patientDateOfBirth}}</td>
                 <td>{{prescription.prescriptionIssueDate}}</td>
                 <form action="{% url 'sellMedicine' %}" method="post">
@@ -373,7 +373,7 @@ body {
                         <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Type: <span>{% for prescribedMedicines in prescribedMedicine %}
                                    {{prescribedMedicines.prescribedMedicineMedicine.type.medicineTypeName}}
                                     {% endfor %}</span></h5><hr>
-                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Comapny: <span>{% for prescribedMedicines in prescribedMedicine %}
+                        <h5 class="h5 font-weight-normal text-primary text-left mb-0">Medicine Company: <span>{% for prescribedMedicines in prescribedMedicine %}
                                    {{prescribedMedicines.prescribedMedicineMedicine.company}}
                                     {% endfor %}</span></h5><hr>
 
